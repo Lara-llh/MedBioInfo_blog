@@ -3,7 +3,6 @@ project:
 
 website:
   description: "A blog built with Quarto"
-  site-url: https://your-website-url.example.com # you must change this appropriately for RSS feeds to work properly
   title: "Quatro-blog-01-20251006"
   navbar:
     right:
@@ -19,5 +18,7 @@ format:
       - brand
     css: styles.css
 
+execute:
+  freeze: auto
 
 
