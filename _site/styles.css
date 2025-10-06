@@ -1,1 +1,37 @@
 /* css styles */
+
+body {
+  font-family: 'Inter', sans-serif;
+  color: #333;
+}
+
+h1, h2, h3 {
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+a {
+  color: #2c7be5;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.navbar {
+  box-shadow: none;
+  border-bottom: 1px solid #eee;
+}
+
+img {
+  border-radius: 10px;
+}
+
+.post-header {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 1em;
+}

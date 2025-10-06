@@ -1,9 +1,78 @@
 ---
-title: "How to make a quatro blog"
+title: "How to make a Quarto blog"
 author: "Lara Leal"
 date: "2025-10-06"
 categories: [code]
+image: "quartoblogimage.jpg"
 ---
 
-In this post we are going to learn how to create a quatro blog. 
+![](quartoblogimage.jpg){.post-header}
+
+In this post we are going to learn how to create a Quarto blog. 
+
+# **Part 1: Create the blog**
+
+The first step is to  create a Quarto blog project. In order to do so, you go to View and open the Command Palette in VScode and then type Quarto: Create Project. Select Blog project and choose the name and location in your computer. 
+
+# **Part 2: Edit** 
+
+Create a new post by generating a new folder in the posts folder of your Quarto blog. 
+Inside this new folder create a new index.qmd file. 
+
+This file should contain some variations of the following information between two lines of ---:
+
+- title: "Title" 
+- author: "your name"
+- date: "YYYY-MM-DD"
+- categories: []
+- image: "image.jpg"
+
+After this coding information you include the content you want to have in your blog. 
+
+There is a lot of options for the code. Some useful resorces to explore the different alternatives that you can integrate in your code are: 
+
+- [Listings](https://quarto.org/docs/websites/website-listings.html)
+- [Executable code](https://quarto.org/docs/output-formats/html-code.html)
+- [Themes](https://quarto.org/docs/output-formats/html-themes.html)
+- [Images formating / Lightbox figures](https://quarto.org/docs/output-formats/html-lightbox-figures.html)
+
+# **Part 3: Publish your blog**
+
+git pwd - you have to make sure you are working in the directory of your blog
+
+git cd "directory" - if you need to set the working directory
+
+git init - to initialize the blog directory as a git repository
+
+git status - to check 
+
+git remote add origin git@github.com:user/blogname.git
+
+quarto render
+
+quarto publish gh-pages 
+
+
+
+
+### Add the blog to GitHub using GitHub Actions
+
+Enter your GitHub account and create a new repository
+
+git add --all - to add all the untracked files (shown with the git status command) to the repository
+
+git commit -m "message to track the changes" - to commit all the changes made
+
+git push -u origin main
+
+
+
+
+For more information on how to automate the publishing of your blog you can follow this [Tutorial on using GitHub Actions.](https://quarto.org/docs/publishing/github-pages.html#github-action)
+
+
+
+
+
+
 

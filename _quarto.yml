@@ -3,20 +3,28 @@ project:
 
 website:
   description: "A blog built with Quarto"
-  title: "Quatro-blog-01-20251006"
+  title: "MedBioInfo Applied Bioinformatics blog by Lara"
   navbar:
+    background: white
     right:
-      - about.qmd
-      - icon: github
-        href: https://github.com/
-      - icon: twitter
-        href: https://twitter.com
+        - text: "About"
+          href: about.qmd
+        - text: "Posts"
+          href: posts.qmd
+        - icon: github
+          href: https://github.com/
+        - icon: linkedin
+          href: https://www.linkedin.com/in/laralealhernández-bioquímica
 format:
   html:
     theme:
-      - cosmo
-      - brand
+      light: flatly
+      dark: darkly
     css: styles.css
+    toc: false
+    code-copy: true
+    code-overflow: wrap
+    page-layout: full
 
 execute:
   freeze: auto
