@@ -1,0 +1,9 @@
+---
+title: "How to make a quatro blog"
+author: "Lara Leal"
+date: "2025-10-06"
+categories: [code]
+---
+
+In this post we are going to learn how to create a quatro blog. 
+
