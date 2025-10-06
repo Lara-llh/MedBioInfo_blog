@@ -14,6 +14,13 @@
     "text": "In this post we are going to learn how to create a quatro blog."
   },
   {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "How to make a quatro blog",
+    "section": "",
+    "text": "Welcome To My Blog\n\n\n\nnews\n\n\n\n\n\n\n\nTristan O’Malley\n\n\nOct 3, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\nPost With Code\n\n\n\nnews\n\ncode\n\nanalysis\n\n\n\n\n\n\n\nHarlow Malloc\n\n\nOct 6, 2025\n\n\n\n\n\n\n\n\n\n\n\nHow to make a quatro blog\n\n\n\ncode\n\n\n\n\n\n\n\nLara Leal\n\n\nOct 6, 2025\n\n\n\n\n\n\nNo matching items"
+  },
+  {
     "objectID": "posts/post-with-code/index.html",
     "href": "posts/post-with-code/index.html",
     "title": "Post With Code",
@@ -26,12 +33,5 @@
     "title": "Welcome To My Blog",
     "section": "",
     "text": "This is the first post in a Quarto blog. Welcome!\n\nSince this post doesn’t specify an explicit image, the first image in the post will be used in the listing page of posts."
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "How to make a quatro blog",
-    "section": "",
-    "text": "Welcome To My Blog\n\n\n\nnews\n\n\n\n\n\n\n\nTristan O’Malley\n\n\nOct 3, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\nPost With Code\n\n\n\nnews\n\ncode\n\nanalysis\n\n\n\n\n\n\n\nHarlow Malloc\n\n\nOct 6, 2025\n\n\n\n\n\n\n\n\n\n\n\nHow to make a quatro blog\n\n\n\ncode\n\n\n\n\n\n\n\nLara Leal\n\n\nOct 6, 2025\n\n\n\n\n\n\nNo matching items"
   }
 ]
