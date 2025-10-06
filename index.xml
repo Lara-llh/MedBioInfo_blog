@@ -5,7 +5,7 @@
       xmlns:dc="http://purl.org/dc/elements/1.1/" 
       version="2.0">
 <channel>
-<title>Quatro-blog-01-20251006</title>
+<title>MedBioInfo Applied Bioinformatics blog by Lara</title>
 <link>https://Lara-llh.github.io/MedBioInfo_blog/</link>
 <atom:link href="https://Lara-llh.github.io/MedBioInfo_blog/index.xml" rel="self" type="application/rss+xml"/>
 <description>A blog built with Quarto</description>
@@ -16,6 +16,7 @@
   <dc:creator>Harlow Malloc</dc:creator>
   <link>https://Lara-llh.github.io/MedBioInfo_blog/posts/post-with-code/</link>
   <description><![CDATA[ 
+
 
 
 
@@ -34,7 +35,7 @@
   <media:content url="https://Lara-llh.github.io/MedBioInfo_blog/posts/post-with-code/image.jpg" medium="image" type="image/jpeg"/>
 </item>
 <item>
-  <title>How to make a quatro blog</title>
+  <title>How to make a Quarto blog</title>
   <dc:creator>Lara Leal</dc:creator>
   <link>https://Lara-llh.github.io/MedBioInfo_blog/posts/how-to-make-a-quatro-blog/</link>
   <description><![CDATA[ 
@@ -43,20 +44,66 @@
 
 
 
-<p>In this post we are going to learn how to create a quatro blog.</p>
+
+<p><img src="https://Lara-llh.github.io/MedBioInfo_blog/posts/how-to-make-a-quatro-blog/quartoblogimage.jpg" class="post-header img-fluid"></p>
+<p>In this post we are going to learn how to create a Quarto blog.</p>
+<section id="part-1-create-the-blog" class="level1">
+<h1><strong>Part 1: Create the blog</strong></h1>
+<p>The first step is to create a Quarto blog project. In order to do so, you go to View and open the Command Palette in VScode and then type Quarto: Create Project. Select Blog project and choose the name and location in your computer.</p>
+</section>
+<section id="part-2-edit" class="level1">
+<h1><strong>Part 2: Edit</strong></h1>
+<p>Create a new post by generating a new folder in the posts folder of your Quarto blog. Inside this new folder create a new index.qmd file.</p>
+<p>This file should contain some variations of the following information between two lines of —:</p>
+<ul>
+<li>title: “Title”</li>
+<li>author: “your name”</li>
+<li>date: “YYYY-MM-DD”</li>
+<li>categories: []</li>
+<li>image: “image.jpg”</li>
+</ul>
+<p>After this coding information you include the content you want to have in your blog.</p>
+<p>There is a lot of options for the code. Some useful resorces to explore the different alternatives that you can integrate in your code are:</p>
+<ul>
+<li><a href="https://quarto.org/docs/websites/website-listings.html">Listings</a></li>
+<li><a href="https://quarto.org/docs/output-formats/html-code.html">Executable code</a></li>
+<li><a href="https://quarto.org/docs/output-formats/html-themes.html">Themes</a></li>
+<li><a href="https://quarto.org/docs/output-formats/html-lightbox-figures.html">Images formating / Lightbox figures</a></li>
+</ul>
+</section>
+<section id="part-3-publish-your-blog" class="level1">
+<h1><strong>Part 3: Publish your blog</strong></h1>
+<p>git pwd - you have to make sure you are working in the directory of your blog</p>
+<p>git cd “directory” - if you need to set the working directory</p>
+<p>git init - to initialize the blog directory as a git repository</p>
+<p>git status - to check</p>
+<p>git remote add origin git@github.com:user/blogname.git</p>
+<p>quarto render</p>
+<p>quarto publish gh-pages</p>
+<section id="add-the-blog-to-github-using-github-actions" class="level3">
+<h3 class="anchored" data-anchor-id="add-the-blog-to-github-using-github-actions">Add the blog to GitHub using GitHub Actions</h3>
+<p>Enter your GitHub account and create a new repository</p>
+<p>git add –all - to add all the untracked files (shown with the git status command) to the repository</p>
+<p>git commit -m “message to track the changes” - to commit all the changes made</p>
+<p>git push -u origin main</p>
+<p>For more information on how to automate the publishing of your blog you can follow this <a href="https://quarto.org/docs/publishing/github-pages.html#github-action">Tutorial on using GitHub Actions.</a></p>
 
 
+</section>
+</section>
 
  ]]></description>
   <category>code</category>
   <guid>https://Lara-llh.github.io/MedBioInfo_blog/posts/how-to-make-a-quatro-blog/</guid>
   <pubDate>Mon, 06 Oct 2025 00:00:00 GMT</pubDate>
+  <media:content url="https://Lara-llh.github.io/MedBioInfo_blog/posts/how-to-make-a-quatro-blog/quartoblogimage.jpg" medium="image" type="image/jpeg"/>
 </item>
 <item>
   <title>Welcome To My Blog</title>
   <dc:creator>Tristan O&#39;Malley</dc:creator>
   <link>https://Lara-llh.github.io/MedBioInfo_blog/posts/welcome/</link>
   <description><![CDATA[ 
+
 
 
 
