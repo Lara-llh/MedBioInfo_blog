@@ -1,0 +1,84 @@
+---
+title: "Working with environments"
+author: "Lara Leal"
+date: "2025-10-07"
+categories: [code]
+image: "pixi_cover.webp"
+---
+
+![](pixi.webp){.post-header}
+
+The different operating systems support different tools. In order to solve this issue, we can use environments, which wil help us make our bioinformatics work more reproducible. This environments specifiy the tools needed to perform the task and the managers inside the environment will make sure to install these tools with their dependencies so that you can run the analysis in your device. 
+
+There are different types of environments, like Conda, but in this course we are going to focus on Pixi. 
+
+## Install Pixi
+
+In order to install pixi just run the following command in your terminal: 
+
+```bash
+curl -fsSL https://pixi.sh/install.sh | sh
+```
+
+You can find more infromation about pixi [here](https://pixi.sh/latest/installation/)
+
+
+## Create an environment
+
+To create an environment for your project we will ask pixi to initialize a folder named `pixi_training`. We will also add conda-forge and bioconda channles with the `-c` flag. 
+
+```bash
+pixi init pixi_training -c conda-forge -c bioconda
+```
+
+If you look in the new folder created you find a file called `pixi.toml`.
+
+#### **1. pixi.toml**
+
+```bash
+[workspace]
+channels = ["conda-forge", "bioconda"]
+name = "amrei_pixi_training"
+platforms = ["osx-arm64"]
+version = "0.1.0"
+
+[tasks]
+
+[dependencies]
+```
+This is how the `pixi.toml`file would like like after creating it. This file gives you information about your project:
+
+- Workspace: 
+An overview of the environment: the channels that we added when we called `pixi init -c`, the name of the environment, the operating system and the version. 
+- Tasks (not covered) 
+- Dependencies: it will list the different tools that you install within the environment. 
+
+#### **2. pixi.lock**
+
+Adding a tool or a dependency to the environemnt will generate another file called `pixi.lock`.
+
+This file contains information about the channels added to you environment, where the packages were dowloaded from, liceses information and more. 
+
+::: {.callout}
+DO NOT DELETE `pixi.toml`or `pixi.lock` files, it will break your environment!
+:::
+
+## Adding dependencies
+
+The comand `pixi add` will tell Pixi to install a specified program for you and it will be added to the dependencies list found in the `pixi.toml` file that we talked about in the previous section.
+
+```bash
+pwd
+cd pixi_training
+pixi add quarto
+```
+If we now check the dependencies in the `pixi.toml` file we would see the new program added `quarto = ">=1.7.32,<2"`(the versions might be different). 
+
+## Running a package
+
+In order to run a package we use the `run` command followed by the package. 
+
+```bash
+pixi run quarto --help
+```
+You can substitute `quarto` with any other package followed by the pertinent commands. 

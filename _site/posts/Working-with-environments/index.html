@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Lara Leal">
-<meta name="dcterms.date" content="2025-10-06">
+<meta name="dcterms.date" content="2025-10-07">
 
-<title>How to make a Quarto blog – MedBioInfo Applied Bioinformatics blog by Lara</title>
+<title>Working with environments – MedBioInfo Applied Bioinformatics blog by Lara</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,6 +21,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -39,14 +74,14 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-707d8167ce6003fca903bfe2be84ab7f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-065a5179aebd64318d7ea99d77b64a9e.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-969ddfa49e00a70eb3423444dbc81f6c.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-065a5179aebd64318d7ea99d77b64a9e.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-f200e1cfad567c89f7f4503f37c6ca50.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-9c907ff75d3534d9e0826f4c8b89b764.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../site_libs/bootstrap/bootstrap-f200e1cfad567c89f7f4503f37c6ca50.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-b7b4d17c1c2e66bdfee6afa81b3a192d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-83632b802d090ebbcb511b7fd2409d30.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-b7b4d17c1c2e66bdfee6afa81b3a192d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -290,7 +325,7 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-page">
-      <h1 class="title">How to make a Quarto blog</h1>
+      <h1 class="title">Working with environments</h1>
                                 <div class="quarto-categories">
                 <div class="quarto-category">code</div>
               </div>
@@ -310,7 +345,7 @@ ul.task-list li input[type="checkbox"] {
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">October 6, 2025</p>
+        <p class="date">October 7, 2025</p>
       </div>
     </div>
     
@@ -330,51 +365,69 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<p><img src="quartoblogimage.jpg" class="post-header img-fluid"></p>
-<p>In this post we are going to learn how to create a Quarto blog.</p>
-<section id="part-1-create-the-blog" class="level1">
-<h1><strong>Part 1: Create the blog</strong></h1>
-<p>The first step is to create a Quarto blog project. In order to do so, you go to View and open the Command Palette in VScode and then type Quarto: Create Project. Select Blog project and choose the name and location in your computer.</p>
+<p><img src="pixi.webp" class="post-header img-fluid"></p>
+<p>The different operating systems support different tools. In order to solve this issue, we can use environments, which wil help us make our bioinformatics work more reproducible. This environments specifiy the tools needed to perform the task and the managers inside the environment will make sure to install these tools with their dependencies so that you can run the analysis in your device.</p>
+<p>There are different types of environments, like Conda, but in this course we are going to focus on Pixi.</p>
+<section id="install-pixi" class="level2">
+<h2 class="anchored" data-anchor-id="install-pixi">Install Pixi</h2>
+<p>In order to install pixi just run the following command in your terminal:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-fsSL</span> https://pixi.sh/install.sh <span class="kw">|</span> <span class="fu">sh</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>You can find more infromation about pixi <a href="https://pixi.sh/latest/installation/">here</a></p>
 </section>
-<section id="part-2-edit" class="level1">
-<h1><strong>Part 2: Edit</strong></h1>
-<p>Create a new post by generating a new folder in the posts folder of your Quarto blog. Inside this new folder create a new index.qmd file.</p>
-<p>This file should contain some variations of the following information between two lines of —:</p>
+<section id="create-an-environment" class="level2">
+<h2 class="anchored" data-anchor-id="create-an-environment">Create an environment</h2>
+<p>To create an environment for your project we will ask pixi to initialize a folder named <code>pixi_training</code>. We will also add conda-forge and bioconda channles with the <code>-c</code> flag.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> init pixi_training <span class="at">-c</span> conda-forge <span class="at">-c</span> bioconda</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>If you look in the new folder created you find a file called <code>pixi.toml</code>.</p>
+<section id="pixi.toml" class="level4">
+<h4 class="anchored" data-anchor-id="pixi.toml"><strong>1. pixi.toml</strong></h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">[workspace]</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">channels</span> = [<span class="st">"conda-forge"</span>, <span class="st">"bioconda"</span>]</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">name</span> = <span class="st">"amrei_pixi_training"</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="ex">platforms</span> = <span class="pp">[</span><span class="st">"osx-arm64"</span><span class="pp">]</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="ex">version</span> = <span class="st">"0.1.0"</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="ex">[tasks]</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="ex">[dependencies]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This is how the <code>pixi.toml</code>file would like like after creating it. This file gives you information about your project:</p>
 <ul>
-<li>title: “Title”</li>
-<li>author: “your name”</li>
-<li>date: “YYYY-MM-DD”</li>
-<li>categories: []</li>
-<li>image: “image.jpg”</li>
-</ul>
-<p>After this coding information you include the content you want to have in your blog.</p>
-<p>There is a lot of options for the code. Some useful resorces to explore the different alternatives that you can integrate in your code are:</p>
-<ul>
-<li><a href="https://quarto.org/docs/websites/website-listings.html">Listings</a></li>
-<li><a href="https://quarto.org/docs/output-formats/html-code.html">Executable code</a></li>
-<li><a href="https://quarto.org/docs/output-formats/html-themes.html">Themes</a></li>
-<li><a href="https://quarto.org/docs/output-formats/html-lightbox-figures.html">Images formating / Lightbox figures</a></li>
+<li>Workspace: An overview of the environment: the channels that we added when we called <code>pixi init -c</code>, the name of the environment, the operating system and the version.</li>
+<li>Tasks (not covered)</li>
+<li>Dependencies: it will list the different tools that you install within the environment.</li>
 </ul>
 </section>
-<section id="part-3-publish-your-blog" class="level1">
-<h1><strong>Part 3: Publish your blog</strong></h1>
-<p>git pwd - you have to make sure you are working in the directory of your blog</p>
-<p>git cd “directory” - if you need to set the working directory</p>
-<p>git init - to initialize the blog directory as a git repository</p>
-<p>git status - to check</p>
-<p>git remote add origin git@github.com:user/blogname.git</p>
-<p>quarto render</p>
-<p>quarto publish gh-pages</p>
-<section id="add-the-blog-to-github-using-github-actions" class="level3">
-<h3 class="anchored" data-anchor-id="add-the-blog-to-github-using-github-actions">Add the blog to GitHub using GitHub Actions</h3>
-<p>Enter your GitHub account and create a new repository</p>
-<p>git add –all - to add all the untracked files (shown with the git status command) to the repository</p>
-<p>git commit -m “message to track the changes” - to commit all the changes made</p>
-<p>git push -u origin main</p>
-<p>For more information on how to automate the publishing of your blog you can follow this <a href="https://quarto.org/docs/publishing/github-pages.html#github-action">Tutorial on using GitHub Actions.</a></p>
+<section id="pixi.lock" class="level4">
+<h4 class="anchored" data-anchor-id="pixi.lock"><strong>2. pixi.lock</strong></h4>
+<p>Adding a tool or a dependency to the environemnt will generate another file called <code>pixi.lock</code>.</p>
+<p>This file contains information about the channels added to you environment, where the packages were dowloaded from, liceses information and more.</p>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>DO NOT DELETE <code>pixi.toml</code>or <code>pixi.lock</code> files, it will break your environment!</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="adding-dependencies" class="level2">
+<h2 class="anchored" data-anchor-id="adding-dependencies">Adding dependencies</h2>
+<p>The comand <code>pixi add</code> will tell Pixi to install a specified program for you and it will be added to the dependencies list found in the <code>pixi.toml</code> file that we talked about in the previous section.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> pixi_training</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> add quarto</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>If we now check the dependencies in the <code>pixi.toml</code> file we would see the new program added <code>quarto = "&gt;=1.7.32,&lt;2"</code>(the versions might be different).</p>
+</section>
+<section id="running-a-package" class="level2">
+<h2 class="anchored" data-anchor-id="running-a-package">Running a package</h2>
+<p>In order to run a package we use the <code>run</code> command followed by the package.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> run quarto <span class="at">--help</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>You can substitute <code>quarto</code> with any other package followed by the pertinent commands.</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -464,7 +517,7 @@ ul.task-list li input[type="checkbox"] {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
+        var filterRegex = new RegExp("https:\/\/Lara-llh\.github\.io\/MedBioInfo_blog\/");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

@@ -1,0 +1,7 @@
+---
+title: "How to use and create containers"
+author: "Lara Leal"
+date: "2025-10-06"
+categories: [code]
+image: "containers.jpg"
+---

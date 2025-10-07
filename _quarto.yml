@@ -24,6 +24,8 @@ format:
     toc: false
     code-copy: true
     code-overflow: wrap
+    code-line-numbers: false
+    highlight-style: github
     page-layout: full
 
 execute:
