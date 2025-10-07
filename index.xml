@@ -10,7 +10,142 @@
 <atom:link href="https://Lara-llh.github.io/MedBioInfo_blog/index.xml" rel="self" type="application/rss+xml"/>
 <description>A blog built with Quarto</description>
 <generator>quarto-1.8.25</generator>
-<lastBuildDate>Mon, 06 Oct 2025 00:00:00 GMT</lastBuildDate>
+<lastBuildDate>Mon, 06 Oct 2025 22:00:00 GMT</lastBuildDate>
+<item>
+  <title>Working with environments</title>
+  <dc:creator>Lara Leal</dc:creator>
+  <link>https://Lara-llh.github.io/MedBioInfo_blog/posts/Working-with-environments/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+
+<p><img src="https://Lara-llh.github.io/MedBioInfo_blog/posts/Working-with-environments/pixi.webp" class="post-header img-fluid"></p>
+<p>The different operating systems support different tools. In order to solve this issue, we can use environments, which wil help us make our bioinformatics work more reproducible. This environments specifiy the tools needed to perform the task and the managers inside the environment will make sure to install these tools with their dependencies so that you can run the analysis in your device.</p>
+<p>There are different types of environments, like Conda, but in this course we are going to focus on Pixi.</p>
+<section id="install-pixi" class="level2">
+<h2 class="anchored" data-anchor-id="install-pixi">Install Pixi</h2>
+<p>In order to install pixi just run the following command in your terminal:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">curl</span> <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-fsSL</span> https://pixi.sh/install.sh <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">|</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">sh</span></span></code></pre></div></div>
+<p>You can find more infromation about pixi <a href="https://pixi.sh/latest/installation/">here</a></p>
+</section>
+<section id="create-an-environment" class="level2">
+<h2 class="anchored" data-anchor-id="create-an-environment">Create an environment</h2>
+<p>To create an environment for your project we will ask pixi to initialize a folder named <code>pixi_training</code>. We will also add conda-forge and bioconda channles with the <code>-c</code> flag.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">pixi</span> init pixi_training <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-c</span> conda-forge <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-c</span> bioconda</span></code></pre></div></div>
+<p>If you look in the new folder created you find a file called <code>pixi.toml</code>.</p>
+<section id="pixi.toml" class="level4">
+<h4 class="anchored" data-anchor-id="pixi.toml"><strong>1. pixi.toml</strong></h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">[workspace]</span></span>
+<span id="cb3-2"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">channels</span> = [<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"conda-forge"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"bioconda"</span>]</span>
+<span id="cb3-3"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">name</span> = <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"amrei_pixi_training"</span></span>
+<span id="cb3-4"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">platforms</span> = <span class="pp" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">[</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"osx-arm64"</span><span class="pp" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">]</span></span>
+<span id="cb3-5"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">version</span> = <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"0.1.0"</span></span>
+<span id="cb3-6"></span>
+<span id="cb3-7"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">[tasks]</span></span>
+<span id="cb3-8"></span>
+<span id="cb3-9"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">[dependencies]</span></span></code></pre></div></div>
+<p>This is how the <code>pixi.toml</code>file would like like after creating it. This file gives you information about your project:</p>
+<ul>
+<li>Workspace: An overview of the environment: the channels that we added when we called <code>pixi init -c</code>, the name of the environment, the operating system and the version.</li>
+<li>Tasks (not covered)</li>
+<li>Dependencies: it will list the different tools that you install within the environment.</li>
+</ul>
+</section>
+<section id="pixi.lock" class="level4">
+<h4 class="anchored" data-anchor-id="pixi.lock"><strong>2. pixi.lock</strong></h4>
+<p>Adding a tool or a dependency to the environemnt will generate another file called <code>pixi.lock</code>.</p>
+<p>This file contains information about the channels added to you environment, where the packages were dowloaded from, liceses information and more.</p>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>DO NOT DELETE <code>pixi.toml</code>or <code>pixi.lock</code> files, it will break your environment!</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="adding-dependencies" class="level2">
+<h2 class="anchored" data-anchor-id="adding-dependencies">Adding dependencies</h2>
+<p>The comand <code>pixi add</code> will tell Pixi to install a specified program for you and it will be added to the dependencies list found in the <code>pixi.toml</code> file that we talked about in the previous section.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">pwd</span></span>
+<span id="cb4-2"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">cd</span> pixi_training</span>
+<span id="cb4-3"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">pixi</span> add quarto</span></code></pre></div></div>
+<p>If we now check the dependencies in the <code>pixi.toml</code> file we would see the new program added <code>quarto = "&gt;=1.7.32,&lt;2"</code>(the versions might be different).</p>
+</section>
+<section id="running-a-package" class="level2">
+<h2 class="anchored" data-anchor-id="running-a-package">Running a package</h2>
+<p>In order to run a package we use the <code>run</code> command followed by the package.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">pixi</span> run quarto <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">--help</span></span></code></pre></div></div>
+<p>You can substitute <code>quarto</code> with any other package followed by the pertinent commands.</p>
+
+
+</section>
+
+ ]]></description>
+  <category>code</category>
+  <guid>https://Lara-llh.github.io/MedBioInfo_blog/posts/Working-with-environments/</guid>
+  <pubDate>Mon, 06 Oct 2025 22:00:00 GMT</pubDate>
+  <media:content url="https://Lara-llh.github.io/MedBioInfo_blog/posts/Working-with-environments/pixi_cover.webp" medium="image" type="image/webp"/>
+</item>
 <item>
   <title>Post With Code</title>
   <dc:creator>Harlow Malloc</dc:creator>
@@ -31,13 +166,13 @@
   <category>code</category>
   <category>analysis</category>
   <guid>https://Lara-llh.github.io/MedBioInfo_blog/posts/post-with-code/</guid>
-  <pubDate>Mon, 06 Oct 2025 00:00:00 GMT</pubDate>
+  <pubDate>Sun, 05 Oct 2025 22:00:00 GMT</pubDate>
   <media:content url="https://Lara-llh.github.io/MedBioInfo_blog/posts/post-with-code/image.jpg" medium="image" type="image/jpeg"/>
 </item>
 <item>
   <title>How to make a Quarto blog</title>
   <dc:creator>Lara Leal</dc:creator>
-  <link>https://Lara-llh.github.io/MedBioInfo_blog/posts/how-to-make-a-quatro-blog/</link>
+  <link>https://Lara-llh.github.io/MedBioInfo_blog/posts/how-to-make-a-quarto-blog/</link>
   <description><![CDATA[ 
 
 
@@ -45,7 +180,7 @@
 
 
 
-<p><img src="https://Lara-llh.github.io/MedBioInfo_blog/posts/how-to-make-a-quatro-blog/quartoblogimage.jpg" class="post-header img-fluid"></p>
+<p><img src="https://Lara-llh.github.io/MedBioInfo_blog/posts/how-to-make-a-quarto-blog/quartoblogimage.jpg" class="post-header img-fluid"></p>
 <p>In this post we are going to learn how to create a Quarto blog.</p>
 <section id="part-1-create-the-blog" class="level1">
 <h1><strong>Part 1: Create the blog</strong></h1>
@@ -94,9 +229,9 @@
 
  ]]></description>
   <category>code</category>
-  <guid>https://Lara-llh.github.io/MedBioInfo_blog/posts/how-to-make-a-quatro-blog/</guid>
-  <pubDate>Mon, 06 Oct 2025 00:00:00 GMT</pubDate>
-  <media:content url="https://Lara-llh.github.io/MedBioInfo_blog/posts/how-to-make-a-quatro-blog/quartoblogimage.jpg" medium="image" type="image/jpeg"/>
+  <guid>https://Lara-llh.github.io/MedBioInfo_blog/posts/how-to-make-a-quarto-blog/</guid>
+  <pubDate>Sun, 05 Oct 2025 22:00:00 GMT</pubDate>
+  <media:content url="https://Lara-llh.github.io/MedBioInfo_blog/posts/how-to-make-a-quarto-blog/quartoblogimage.jpg" medium="image" type="image/jpeg"/>
 </item>
 <item>
   <title>Welcome To My Blog</title>
@@ -118,7 +253,7 @@
  ]]></description>
   <category>news</category>
   <guid>https://Lara-llh.github.io/MedBioInfo_blog/posts/welcome/</guid>
-  <pubDate>Fri, 03 Oct 2025 00:00:00 GMT</pubDate>
+  <pubDate>Thu, 02 Oct 2025 22:00:00 GMT</pubDate>
 </item>
 </channel>
 </rss>

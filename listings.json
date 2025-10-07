@@ -4,7 +4,8 @@
     "items": [
       "/posts/welcome/index.html",
       "/posts/post-with-code/index.html",
-      "/posts/how-to-make-a-quatro-blog/index.html"
+      "/posts/how-to-make-a-quarto-blog/index.html",
+      "/posts/Working-with-environments/index.html"
     ]
   }
 ]

@@ -6,10 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Tristan O’Malley">
-<meta name="dcterms.date" content="2025-10-03">
+<meta name="author" content="Lara Leal">
+<meta name="dcterms.date" content="2025-10-06">
 
-<title>Welcome To My Blog – MedBioInfo Applied Bioinformatics blog by Lara</title>
+<title>How to make a Quarto blog – MedBioInfo Applied Bioinformatics blog by Lara</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -290,9 +290,9 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-page">
-      <h1 class="title">Welcome To My Blog</h1>
+      <h1 class="title">How to make a Quarto blog</h1>
                                 <div class="quarto-categories">
-                <div class="quarto-category">news</div>
+                <div class="quarto-category">code</div>
               </div>
                   </div>
   </div>
@@ -303,14 +303,14 @@ ul.task-list li input[type="checkbox"] {
       <div>
       <div class="quarto-title-meta-heading">Author</div>
       <div class="quarto-title-meta-contents">
-               <p>Tristan O’Malley </p>
+               <p>Lara Leal </p>
             </div>
     </div>
       
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">October 3, 2025</p>
+        <p class="date">October 6, 2025</p>
       </div>
     </div>
     
@@ -330,11 +330,52 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<p>This is the first post in a Quarto blog. Welcome!</p>
-<p><img src="thumbnail.jpg" class="img-fluid"></p>
-<p>Since this post doesn’t specify an explicit <code>image</code>, the first image in the post will be used in the listing page of posts.</p>
+<p><img src="quartoblogimage.jpg" class="post-header img-fluid"></p>
+<p>In this post we are going to learn how to create a Quarto blog.</p>
+<section id="part-1-create-the-blog" class="level1">
+<h1><strong>Part 1: Create the blog</strong></h1>
+<p>The first step is to create a Quarto blog project. In order to do so, you go to View and open the Command Palette in VScode and then type Quarto: Create Project. Select Blog project and choose the name and location in your computer.</p>
+</section>
+<section id="part-2-edit" class="level1">
+<h1><strong>Part 2: Edit</strong></h1>
+<p>Create a new post by generating a new folder in the posts folder of your Quarto blog. Inside this new folder create a new index.qmd file.</p>
+<p>This file should contain some variations of the following information between two lines of —:</p>
+<ul>
+<li>title: “Title”</li>
+<li>author: “your name”</li>
+<li>date: “YYYY-MM-DD”</li>
+<li>categories: []</li>
+<li>image: “image.jpg”</li>
+</ul>
+<p>After this coding information you include the content you want to have in your blog.</p>
+<p>There is a lot of options for the code. Some useful resorces to explore the different alternatives that you can integrate in your code are:</p>
+<ul>
+<li><a href="https://quarto.org/docs/websites/website-listings.html">Listings</a></li>
+<li><a href="https://quarto.org/docs/output-formats/html-code.html">Executable code</a></li>
+<li><a href="https://quarto.org/docs/output-formats/html-themes.html">Themes</a></li>
+<li><a href="https://quarto.org/docs/output-formats/html-lightbox-figures.html">Images formating / Lightbox figures</a></li>
+</ul>
+</section>
+<section id="part-3-publish-your-blog" class="level1">
+<h1><strong>Part 3: Publish your blog</strong></h1>
+<p>git pwd - you have to make sure you are working in the directory of your blog</p>
+<p>git cd “directory” - if you need to set the working directory</p>
+<p>git init - to initialize the blog directory as a git repository</p>
+<p>git status - to check</p>
+<p>git remote add origin git@github.com:user/blogname.git</p>
+<p>quarto render</p>
+<p>quarto publish gh-pages</p>
+<section id="add-the-blog-to-github-using-github-actions" class="level3">
+<h3 class="anchored" data-anchor-id="add-the-blog-to-github-using-github-actions">Add the blog to GitHub using GitHub Actions</h3>
+<p>Enter your GitHub account and create a new repository</p>
+<p>git add –all - to add all the untracked files (shown with the git status command) to the repository</p>
+<p>git commit -m “message to track the changes” - to commit all the changes made</p>
+<p>git push -u origin main</p>
+<p>For more information on how to automate the publishing of your blog you can follow this <a href="https://quarto.org/docs/publishing/github-pages.html#github-action">Tutorial on using GitHub Actions.</a></p>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
