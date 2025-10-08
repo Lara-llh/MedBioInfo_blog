@@ -14,6 +14,13 @@
     "text": "In this post we are going to learn how to create a Quarto blog.\n\nPart 1: Create the blog\nThe first step is to create a Quarto blog project. In order to do so, you go to View and open the Command Palette in VScode and then type Quarto: Create Project. Select Blog project and choose the name and location in your computer.\n\n\nPart 2: Edit\nCreate a new post by generating a new folder in the posts folder of your Quarto blog. Inside this new folder create a new index.qmd file.\nThis file should contain some variations of the following information between two lines of —:\n\ntitle: “Title”\nauthor: “your name”\ndate: “YYYY-MM-DD”\ncategories: []\nimage: “image.jpg”\n\nAfter this coding information you include the content you want to have in your blog.\nThere is a lot of options for the code. Some useful resorces to explore the different alternatives that you can integrate in your code are:\n\nListings\nExecutable code\nThemes\nImages formating / Lightbox figures\n\n\n\nPart 3: Publish your blog\ngit pwd - you have to make sure you are working in the directory of your blog\ngit cd “directory” - if you need to set the working directory\ngit init - to initialize the blog directory as a git repository\ngit status - to check\ngit remote add origin git@github.com:user/blogname.git\nquarto render\nquarto publish gh-pages\n\nAdd the blog to GitHub using GitHub Actions\nEnter your GitHub account and create a new repository\ngit add –all - to add all the untracked files (shown with the git status command) to the repository\ngit commit -m “message to track the changes” - to commit all the changes made\ngit push -u origin main\nFor more information on how to automate the publishing of your blog you can follow this Tutorial on using GitHub Actions."
   },
   {
+    "objectID": "posts/post-with-code/index.html",
+    "href": "posts/post-with-code/index.html",
+    "title": "Post With Code",
+    "section": "",
+    "text": "This is a post with executable code."
+  },
+  {
     "objectID": "posts/Working-with-environments/index.html",
     "href": "posts/Working-with-environments/index.html",
     "title": "Working with environments",
@@ -49,13 +56,6 @@
     "text": "Running a package\nIn order to run a package we use the run command followed by the package.\npixi run quarto --help\nYou can substitute quarto with any other package followed by the pertinent commands."
   },
   {
-    "objectID": "posts/post-with-code/index.html",
-    "href": "posts/post-with-code/index.html",
-    "title": "Post With Code",
-    "section": "",
-    "text": "This is a post with executable code."
-  },
-  {
     "objectID": "posts/welcome/index.html",
     "href": "posts/welcome/index.html",
     "title": "Welcome To My Blog",
@@ -67,6 +67,6 @@
     "href": "index.html",
     "title": "How to make a quatro blog",
     "section": "",
-    "text": "Welcome To My Blog\n\n\n\nnews\n\n\n\n\n\n\n\nTristan O’Malley\n\n\nOct 3, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\nPost With Code\n\n\n\nnews\n\ncode\n\nanalysis\n\n\n\n\n\n\n\nHarlow Malloc\n\n\nOct 6, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\nHow to make a Quarto blog\n\n\n\ncode\n\n\n\n\n\n\n\nLara Leal\n\n\nOct 6, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\nWorking with environments\n\n\n\ncode\n\n\n\n\n\n\n\nLara Leal\n\n\nOct 7, 2025\n\n\n\n\n\n\nNo matching items"
+    "text": "Welcome To My Blog\n\n\n\nnews\n\n\n\n\n\n\n\nTristan O’Malley\n\n\nOct 3, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\nPost With Code\n\n\n\nnews\n\ncode\n\nanalysis\n\n\n\n\n\n\n\nHarlow Malloc\n\n\nOct 6, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\nHow to use and create containers\n\n\n\ncode\n\n\n\n\n\n\n\nLara Leal\n\n\nOct 6, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\nHow to make a Quarto blog\n\n\n\ncode\n\n\n\n\n\n\n\nLara Leal\n\n\nOct 6, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\nWorking with environments\n\n\n\ncode\n\n\n\n\n\n\n\nLara Leal\n\n\nOct 7, 2025\n\n\n\n\n\n\nNo matching items"
   }
 ]
