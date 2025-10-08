@@ -10,7 +10,28 @@
 <atom:link href="https://Lara-llh.github.io/MedBioInfo_blog/index.xml" rel="self" type="application/rss+xml"/>
 <description>A blog built with Quarto</description>
 <generator>quarto-1.8.25</generator>
-<lastBuildDate>Tue, 07 Oct 2025 00:00:00 GMT</lastBuildDate>
+<lastBuildDate>Wed, 08 Oct 2025 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>Nextflow Intro</title>
+  <dc:creator>Lara Leal</dc:creator>
+  <link>https://Lara-llh.github.io/MedBioInfo_blog/posts/Nextflow Intro/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+
+<p><img src="https://Lara-llh.github.io/MedBioInfo_blog/posts/Nextflow Intro/Nextflow.png" class="post-header img-fluid"></p>
+
+
+
+ ]]></description>
+  <category>code</category>
+  <guid>https://Lara-llh.github.io/MedBioInfo_blog/posts/Nextflow Intro/</guid>
+  <pubDate>Wed, 08 Oct 2025 00:00:00 GMT</pubDate>
+  <media:content url="https://Lara-llh.github.io/MedBioInfo_blog/posts/Nextflow Intro/Nextflow.png" medium="image" type="image/png" height="23" width="144"/>
+</item>
 <item>
   <title>Working with environments</title>
   <dc:creator>Lara Leal</dc:creator>
@@ -157,6 +178,7 @@ font-style: inherit;">--help</span></span></code></pre></div></div>
 
 
 
+<p><img src="https://Lara-llh.github.io/MedBioInfo_blog/posts/how-to-use-and-create-containers/containers.jpg.jpg" class="post-header img-fluid"></p>
 <p>Reproducibility in bioinformatics can be a big problem. The same code can be runned by you in you computer and give some results, and when given to someone else it gives other results or it doesn’t fully work.</p>
 <p>In order to resolve this issue, different tools were developed. You can use environments or containers.</p>
 <div class="callout callout-style-simple callout-none no-icon">
