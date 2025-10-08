@@ -10,7 +10,7 @@
 <atom:link href="https://Lara-llh.github.io/MedBioInfo_blog/index.xml" rel="self" type="application/rss+xml"/>
 <description>A blog built with Quarto</description>
 <generator>quarto-1.8.25</generator>
-<lastBuildDate>Mon, 06 Oct 2025 22:00:00 GMT</lastBuildDate>
+<lastBuildDate>Tue, 07 Oct 2025 00:00:00 GMT</lastBuildDate>
 <item>
   <title>Working with environments</title>
   <dc:creator>Lara Leal</dc:creator>
@@ -143,7 +143,7 @@ font-style: inherit;">--help</span></span></code></pre></div></div>
  ]]></description>
   <category>code</category>
   <guid>https://Lara-llh.github.io/MedBioInfo_blog/posts/Working-with-environments/</guid>
-  <pubDate>Mon, 06 Oct 2025 22:00:00 GMT</pubDate>
+  <pubDate>Tue, 07 Oct 2025 00:00:00 GMT</pubDate>
   <media:content url="https://Lara-llh.github.io/MedBioInfo_blog/posts/Working-with-environments/pixi_cover.webp" medium="image" type="image/webp"/>
 </item>
 <item>
@@ -166,7 +166,7 @@ font-style: inherit;">--help</span></span></code></pre></div></div>
   <category>code</category>
   <category>analysis</category>
   <guid>https://Lara-llh.github.io/MedBioInfo_blog/posts/post-with-code/</guid>
-  <pubDate>Sun, 05 Oct 2025 22:00:00 GMT</pubDate>
+  <pubDate>Mon, 06 Oct 2025 00:00:00 GMT</pubDate>
   <media:content url="https://Lara-llh.github.io/MedBioInfo_blog/posts/post-with-code/image.jpg" medium="image" type="image/jpeg"/>
 </item>
 <item>
@@ -186,7 +186,7 @@ font-style: inherit;">--help</span></span></code></pre></div></div>
  ]]></description>
   <category>code</category>
   <guid>https://Lara-llh.github.io/MedBioInfo_blog/posts/how-to-use-and-create-containers/</guid>
-  <pubDate>Sun, 05 Oct 2025 22:00:00 GMT</pubDate>
+  <pubDate>Mon, 06 Oct 2025 00:00:00 GMT</pubDate>
   <media:content url="https://Lara-llh.github.io/MedBioInfo_blog/posts/how-to-use-and-create-containers/containers.jpg" medium="image" type="image/jpeg"/>
 </item>
 <item>
@@ -250,7 +250,7 @@ font-style: inherit;">--help</span></span></code></pre></div></div>
  ]]></description>
   <category>code</category>
   <guid>https://Lara-llh.github.io/MedBioInfo_blog/posts/how-to-make-a-quarto-blog/</guid>
-  <pubDate>Sun, 05 Oct 2025 22:00:00 GMT</pubDate>
+  <pubDate>Mon, 06 Oct 2025 00:00:00 GMT</pubDate>
   <media:content url="https://Lara-llh.github.io/MedBioInfo_blog/posts/how-to-make-a-quarto-blog/quartoblogimage.jpg" medium="image" type="image/jpeg"/>
 </item>
 <item>
@@ -273,7 +273,7 @@ font-style: inherit;">--help</span></span></code></pre></div></div>
  ]]></description>
   <category>news</category>
   <guid>https://Lara-llh.github.io/MedBioInfo_blog/posts/welcome/</guid>
-  <pubDate>Thu, 02 Oct 2025 22:00:00 GMT</pubDate>
+  <pubDate>Fri, 03 Oct 2025 00:00:00 GMT</pubDate>
 </item>
 </channel>
 </rss>
