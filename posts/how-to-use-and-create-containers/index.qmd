@@ -1,7 +1,128 @@
 ---
 title: "How to use and create containers"
 author: "Lara Leal"
-date: "2025-10-06"
+date: "2025-10-07"
 categories: [code]
 image: "containers.jpg"
 ---
+
+Reproducibility in bioinformatics can be a big problem. The same code can be runned by you in you computer and give some results, and when given to someone else it gives other results or it doesn't fully work. 
+
+In order to resolve this issue, different tools were developed. You can use environments or containers. 
+
+::: {.callout}
+- **Environments:** they conform an isolated system that contains all the necessary software (operating system, libraries, tools, packages...) needed to run the task in hand. 
+- **Containers:** they are stand-alone software pieces that specify the operating system, all dependencies and software of an isolated environment. They are built and exchanged as container images and need a container management tool to take this images and build the container. This container images are immutable and therefore stables over time. 
+:::
+
+## CONTAINERS
+
+There are different programs taht can be use to build and run containers: [Docker](https://www.docker.com), [Appptainer](https://apptainer.org) or [Podman](https://podman.io) are the most widely used. 
+
+### **1. How to obtain these containers**
+
+There are several repositories in which people publish container images, two of the most commonly used are: [Dockerhub](https://hub.docker.com) and [Seqera](https://seqera.io/containers/). 
+
+#### Dockerhub 
+
+Once you access their webpage (no need to create an account), you can search for the software that you need. In this case we are looking for **VCFtools**. This software is used for VCF manipulation and querying. 
+
+::: {.callout}
+VCF manipulation and querying refers to the processes of altering (manipulating) and extracting (querying) specific information from Variant Call Format (VCF) files, which are standardized text files used in bioinformatics to store and report genomic variations in sequenced samples. 
+- Manipulation involves functions to read, write, or modify VCF data.
+- Querying involves selecting and formatting subsets of the data for analysis, quality control, or visualization. 
+:::
+
+After going to dockerhub and choosing one container, we copy the pull comand and run the following in the project server: 
+```bash
+apptainer pull vcftools_0.1.16-1.sif docker://biocontainers/vcftools:v0.1.16-1-deb_cv1
+```
+
+#### Seqera
+
+In the case of Seqera, users don't upload their containers, but they develop container images as you request them. 
+
+To pull an image from this repository you need to set the container setting to Singularity (Apptainer old name). 
+
+Make sure the container is compiled before trying to pull it!!
+
+Once it's ready you can copy the text and pull it to your system with the following command:
+```bash
+apptainer pull vcftools_0.1.17.sif oras://community.wave.seqera.io/library/vcftools:0.1.17--b541aa8d9f9213f9
+```
+### **2. Running Containers**
+
+Apptainer can be used to build the container from the image. Then you can either enter the container and run as if you had the exact same operating system as the person who built it, or you can run the software inside the container from outside of the container.
+
+#### Running from "the outside"
+
+```bash
+apptainer exec vcftools_0.1.17.sif vcftools --version
+```
+
+You can use `run`or ` exec` to use the container. Note than using `run`it will launch the container and first run the `%runscript` if one is defined and then run you command. 
+
+#### Running interactively from "the inside"
+
+There is also the possibility to enter the container and work interactively within it. 
+
+```bash 
+apptainer shell <name-of-container>
+```
+Remember that the container is a isolated system and if you want to use files from outside you will need to bind file paths using `-B`. 
+```bash
+apptainer shell <name-of-container>
+apptainer shell -B outside/path:inside/path <name-of-container>
+```
+To exit the container type ` exit` and enter. 
+
+#### Running containers with sbatch
+
+Apptainer containers can be run as part of a batch job if you integrate them int a SLURM job submission script. 
+
+We are going to add the container to our `FastQC`sbatch script. 
+
+```bash
+#! /bin/bash -l
+#SBATCH -A project_ID
+#SBATCH -t 30:00
+#SBATCH -n 1
+
+apptainer exec container_image.sif fastqc -o . --noextract ../data/*fastq.gz
+```
+
+### **3. Run your own container**
+
+This is a computationally intesnive task. The containers are build froma definition file (`.def`extension).
+
+Let´s build a container with a cow telling us the date!
+
+Create a file called `lolcow.def` and add the following:
+```bash
+Bootstrap: docker
+From: ubuntu:20.04
+
+%post
+    apt-get -y update
+    apt-get -y install cowsay lolcat fortune
+
+%environment
+    export LC_ALL=C
+    export PATH=/usr/games:$PATH
+
+%runscript
+    date | cowsay | lolcat    
+```
+Then to build the conrainer use:
+```bash
+apptainer build lolcow.sif lolcow.def
+```
+You will get information on the staus of the build and it will tell you when it´s ready. 
+
+Then you can run your new container:
+```bash
+apptainer run lolcow.sif
+```
+If you want you can change the `%runscript`from your `lolcow.def` file and change `date`for `fortune`. Now you will get the same cow but with a tale.
+
+

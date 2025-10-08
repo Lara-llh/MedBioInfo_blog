@@ -38,6 +38,7 @@ There is a lot of options for the code. Some useful resorces to explore the diff
 
 # **Part 3: Publish your blog**
 
+```bash
 git pwd - you have to make sure you are working in the directory of your blog
 
 git cd "directory" - if you need to set the working directory
@@ -51,7 +52,7 @@ git remote add origin git@github.com:user/blogname.git
 quarto render
 
 quarto publish gh-pages 
-
+```
 
 
 
@@ -59,13 +60,17 @@ quarto publish gh-pages
 
 Enter your GitHub account and create a new repository
 
+```bash
 git add --all - to add all the untracked files (shown with the git status command) to the repository
 
 git commit -m "message to track the changes" - to commit all the changes made
 
 git push -u origin main
+```
 
-
+::: {.callout}
+You have to follow this three steps every time you make changes in your Quarto blog and want to push them to your GitHub repository.
+:::
 
 
 For more information on how to automate the publishing of your blog you can follow this [Tutorial on using GitHub Actions.](https://quarto.org/docs/publishing/github-pages.html#github-action)
