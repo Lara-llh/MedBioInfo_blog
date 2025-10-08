@@ -331,8 +331,15 @@ ul.task-list li input[type="checkbox"] {
 
 
 <p><img src="Nextflow.png" class="post-header img-fluid"></p>
+<p>Workflow managers allow you to develop an automated pipeline from your scripts that can then be run on a variety of systems.</p>
+<p>The manager then coordinates the deployment of the scripts in the appropriate sequence, monitors the jobs, handles the file transfers between scripts, gathers the output, and handles re-execution of failed jobs for you. Workflow managed pipelines can run containers, which eliminates software installation and version conflicts.</p>
+<p>There are two main workflow managers: <a href="https://www.snakemake.io">snakemake</a> and <a href="https://www.nextflow.io">nextflow</a>.</p>
+<section id="netflow" class="level2">
+<h2 class="anchored" data-anchor-id="netflow"><strong>Netflow</strong></h2>
+<p>In nextflow, your scripts are turned into processes, connected by channels that contain the data - input, output etc. The order of the processes, and their interaction with each other, is specfied in the workflow scope.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

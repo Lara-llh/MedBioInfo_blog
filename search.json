@@ -49,6 +49,20 @@
     "text": "In this post we are going to learn how to create a Quarto blog.\n\nPart 1: Create the blog\nThe first step is to create a Quarto blog project. In order to do so, you go to View and open the Command Palette in VScode and then type Quarto: Create Project. Select Blog project and choose the name and location in your computer.\n\n\nPart 2: Edit\nCreate a new post by generating a new folder in the posts folder of your Quarto blog. Inside this new folder create a new index.qmd file.\nThis file should contain some variations of the following information between two lines of —:\n\ntitle: “Title”\nauthor: “your name”\ndate: “YYYY-MM-DD”\ncategories: []\nimage: “image.jpg”\n\nAfter this coding information you include the content you want to have in your blog.\nThere is a lot of options for the code. Some useful resorces to explore the different alternatives that you can integrate in your code are:\n\nListings\nExecutable code\nThemes\nImages formating / Lightbox figures\n\n\n\nPart 3: Publish your blog\ngit pwd - you have to make sure you are working in the directory of your blog\n\ngit cd \"directory\" - if you need to set the working directory\n\ngit init - to initialize the blog directory as a git repository\n\ngit status - to check \n\ngit remote add origin git@github.com:user/blogname.git\n\nquarto render\n\nquarto publish gh-pages \n\nAdd the blog to GitHub using GitHub Actions\nEnter your GitHub account and create a new repository\ngit add --all - to add all the untracked files (shown with the git status command) to the repository\n\ngit commit -m \"message to track the changes\" - to commit all the changes made\n\ngit push -u origin main\n\n\n\n\n\n\nYou have to follow this three steps every time you make changes in your Quarto blog and want to push them to your GitHub repository.\n\n\n\nFor more information on how to automate the publishing of your blog you can follow this Tutorial on using GitHub Actions."
   },
   {
+    "objectID": "posts/Nextflow Intro/index.html",
+    "href": "posts/Nextflow Intro/index.html",
+    "title": "Nextflow Intro",
+    "section": "",
+    "text": "Workflow managers allow you to develop an automated pipeline from your scripts that can then be run on a variety of systems.\nThe manager then coordinates the deployment of the scripts in the appropriate sequence, monitors the jobs, handles the file transfers between scripts, gathers the output, and handles re-execution of failed jobs for you. Workflow managed pipelines can run containers, which eliminates software installation and version conflicts.\nThere are two main workflow managers: snakemake and nextflow."
+  },
+  {
+    "objectID": "posts/Nextflow Intro/index.html#netflow",
+    "href": "posts/Nextflow Intro/index.html#netflow",
+    "title": "Nextflow Intro",
+    "section": "Netflow",
+    "text": "Netflow\nIn nextflow, your scripts are turned into processes, connected by channels that contain the data - input, output etc. The order of the processes, and their interaction with each other, is specfied in the workflow scope."
+  },
+  {
     "objectID": "posts/Working-with-environments/index.html",
     "href": "posts/Working-with-environments/index.html",
     "title": "Working with environments",
