@@ -147,6 +147,219 @@ font-style: inherit;">--help</span></span></code></pre></div></div>
   <media:content url="https://Lara-llh.github.io/MedBioInfo_blog/posts/Working-with-environments/pixi_cover.webp" medium="image" type="image/webp"/>
 </item>
 <item>
+  <title>How to use and create containers</title>
+  <dc:creator>Lara Leal</dc:creator>
+  <link>https://Lara-llh.github.io/MedBioInfo_blog/posts/how-to-use-and-create-containers/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+
+<p>Reproducibility in bioinformatics can be a big problem. The same code can be runned by you in you computer and give some results, and when given to someone else it gives other results or it doesn’t fully work.</p>
+<p>In order to resolve this issue, different tools were developed. You can use environments or containers.</p>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<ul>
+<li><strong>Environments:</strong> they conform an isolated system that contains all the necessary software (operating system, libraries, tools, packages…) needed to run the task in hand.</li>
+<li><strong>Containers:</strong> they are stand-alone software pieces that specify the operating system, all dependencies and software of an isolated environment. They are built and exchanged as container images and need a container management tool to take this images and build the container. This container images are immutable and therefore stables over time.</li>
+</ul>
+</div>
+</div>
+</div>
+<section id="containers" class="level2">
+<h2 class="anchored" data-anchor-id="containers">CONTAINERS</h2>
+<p>There are different programs taht can be use to build and run containers: <a href="https://www.docker.com">Docker</a>, <a href="https://apptainer.org">Appptainer</a> or <a href="https://podman.io">Podman</a> are the most widely used.</p>
+<section id="how-to-obtain-these-containers" class="level3">
+<h3 class="anchored" data-anchor-id="how-to-obtain-these-containers"><strong>1. How to obtain these containers</strong></h3>
+<p>There are several repositories in which people publish container images, two of the most commonly used are: <a href="https://hub.docker.com">Dockerhub</a> and <a href="https://seqera.io/containers/">Seqera</a>.</p>
+<section id="dockerhub" class="level4">
+<h4 class="anchored" data-anchor-id="dockerhub">Dockerhub</h4>
+<p>Once you access their webpage (no need to create an account), you can search for the software that you need. In this case we are looking for <strong>VCFtools</strong>. This software is used for VCF manipulation and querying.</p>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>VCF manipulation and querying refers to the processes of altering (manipulating) and extracting (querying) specific information from Variant Call Format (VCF) files, which are standardized text files used in bioinformatics to store and report genomic variations in sequenced samples. - Manipulation involves functions to read, write, or modify VCF data. - Querying involves selecting and formatting subsets of the data for analysis, quality control, or visualization.</p>
+</div>
+</div>
+</div>
+<p>After going to dockerhub and choosing one container, we copy the pull comand and run the following in the project server:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">apptainer</span> pull vcftools_0.1.16-1.sif docker://biocontainers/vcftools:v0.1.16-1-deb_cv1</span></code></pre></div></div>
+</section>
+<section id="seqera" class="level4">
+<h4 class="anchored" data-anchor-id="seqera">Seqera</h4>
+<p>In the case of Seqera, users don’t upload their containers, but they develop container images as you request them.</p>
+<p>To pull an image from this repository you need to set the container setting to Singularity (Apptainer old name).</p>
+<p>Make sure the container is compiled before trying to pull it!!</p>
+<p>Once it’s ready you can copy the text and pull it to your system with the following command:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">apptainer</span> pull vcftools_0.1.17.sif oras://community.wave.seqera.io/library/vcftools:0.1.17--b541aa8d9f9213f9</span></code></pre></div></div>
+</section>
+</section>
+<section id="running-containers" class="level3">
+<h3 class="anchored" data-anchor-id="running-containers"><strong>2. Running Containers</strong></h3>
+<p>Apptainer can be used to build the container from the image. Then you can either enter the container and run as if you had the exact same operating system as the person who built it, or you can run the software inside the container from outside of the container.</p>
+<section id="running-from-the-outside" class="level4">
+<h4 class="anchored" data-anchor-id="running-from-the-outside">Running from “the outside”</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">apptainer</span> exec vcftools_0.1.17.sif vcftools <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">--version</span></span></code></pre></div></div>
+<p>You can use <code>run</code>or <code>exec</code> to use the container. Note than using <code>run</code>it will launch the container and first run the <code>%runscript</code> if one is defined and then run you command.</p>
+</section>
+<section id="running-interactively-from-the-inside" class="level4">
+<h4 class="anchored" data-anchor-id="running-interactively-from-the-inside">Running interactively from “the inside”</h4>
+<p>There is also the possibility to enter the container and work interactively within it.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">apptainer</span> shell <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;</span>name-of-container<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span></span></code></pre></div></div>
+<p>Remember that the container is a isolated system and if you want to use files from outside you will need to bind file paths using <code>-B</code>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">apptainer</span> shell <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;</span>name-of-container<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span></span>
+<span id="cb5-2"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">apptainer</span> shell <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-B</span> outside/path:inside/path <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;</span>name-of-container<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span></span></code></pre></div></div>
+<p>To exit the container type <code>exit</code> and enter.</p>
+</section>
+<section id="running-containers-with-sbatch" class="level4">
+<h4 class="anchored" data-anchor-id="running-containers-with-sbatch">Running containers with sbatch</h4>
+<p>Apptainer containers can be run as part of a batch job if you integrate them int a SLURM job submission script.</p>
+<p>We are going to add the container to our <code>FastQC</code>sbatch script.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#! /bin/bash -l</span></span>
+<span id="cb6-2"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#SBATCH -A project_ID</span></span>
+<span id="cb6-3"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#SBATCH -t 30:00</span></span>
+<span id="cb6-4"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#SBATCH -n 1</span></span>
+<span id="cb6-5"></span>
+<span id="cb6-6"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">apptainer</span> exec container_image.sif fastqc <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-o</span> . <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">--noextract</span> ../data/<span class="pp" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">*</span>fastq.gz</span></code></pre></div></div>
+</section>
+</section>
+<section id="run-your-own-container" class="level3">
+<h3 class="anchored" data-anchor-id="run-your-own-container"><strong>3. Run your own container</strong></h3>
+<p>This is a computationally intesnive task. The containers are build froma definition file (<code>.def</code>extension).</p>
+<p>Let´s build a container with a cow telling us the date!</p>
+<p>Create a file called <code>lolcow.def</code> and add the following:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">Bootstrap:</span> docker</span>
+<span id="cb7-2"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">From:</span> ubuntu:20.04</span>
+<span id="cb7-3"></span>
+<span id="cb7-4"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">%post</span></span>
+<span id="cb7-5">    <span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">apt-get</span> <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-y</span> update</span>
+<span id="cb7-6">    <span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">apt-get</span> <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-y</span> install cowsay lolcat fortune</span>
+<span id="cb7-7"></span>
+<span id="cb7-8"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">%environment</span></span>
+<span id="cb7-9">    <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">export</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">LC_ALL</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>C</span>
+<span id="cb7-10">    <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">export</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">PATH</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>/usr/games:<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">$PATH</span></span>
+<span id="cb7-11"></span>
+<span id="cb7-12"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">%runscript</span></span>
+<span id="cb7-13">    <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">date</span> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">|</span> <span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">cowsay</span> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">|</span> <span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">lolcat</span>    </span></code></pre></div></div>
+<p>Then to build the conrainer use:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">apptainer</span> build lolcow.sif lolcow.def</span></code></pre></div></div>
+<p>You will get information on the staus of the build and it will tell you when it´s ready.</p>
+<p>Then you can run your new container:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">apptainer</span> run lolcow.sif</span></code></pre></div></div>
+<p>If you want you can change the <code>%runscript</code>from your <code>lolcow.def</code> file and change <code>date</code>for <code>fortune</code>. Now you will get the same cow but with a tale.</p>
+
+
+</section>
+</section>
+
+ ]]></description>
+  <category>code</category>
+  <guid>https://Lara-llh.github.io/MedBioInfo_blog/posts/how-to-use-and-create-containers/</guid>
+  <pubDate>Tue, 07 Oct 2025 00:00:00 GMT</pubDate>
+  <media:content url="https://Lara-llh.github.io/MedBioInfo_blog/posts/how-to-use-and-create-containers/containers.jpg" medium="image" type="image/jpeg"/>
+</item>
+<item>
   <title>Post With Code</title>
   <dc:creator>Harlow Malloc</dc:creator>
   <link>https://Lara-llh.github.io/MedBioInfo_blog/posts/post-with-code/</link>
@@ -168,26 +381,6 @@ font-style: inherit;">--help</span></span></code></pre></div></div>
   <guid>https://Lara-llh.github.io/MedBioInfo_blog/posts/post-with-code/</guid>
   <pubDate>Mon, 06 Oct 2025 00:00:00 GMT</pubDate>
   <media:content url="https://Lara-llh.github.io/MedBioInfo_blog/posts/post-with-code/image.jpg" medium="image" type="image/jpeg"/>
-</item>
-<item>
-  <title>How to use and create containers</title>
-  <dc:creator>Lara Leal</dc:creator>
-  <link>https://Lara-llh.github.io/MedBioInfo_blog/posts/how-to-use-and-create-containers/</link>
-  <description><![CDATA[ 
-
-
-
-
-
-
-
-
-
- ]]></description>
-  <category>code</category>
-  <guid>https://Lara-llh.github.io/MedBioInfo_blog/posts/how-to-use-and-create-containers/</guid>
-  <pubDate>Mon, 06 Oct 2025 00:00:00 GMT</pubDate>
-  <media:content url="https://Lara-llh.github.io/MedBioInfo_blog/posts/how-to-use-and-create-containers/containers.jpg" medium="image" type="image/jpeg"/>
 </item>
 <item>
   <title>How to make a Quarto blog</title>
@@ -228,19 +421,88 @@ font-style: inherit;">--help</span></span></code></pre></div></div>
 </section>
 <section id="part-3-publish-your-blog" class="level1">
 <h1><strong>Part 3: Publish your blog</strong></h1>
-<p>git pwd - you have to make sure you are working in the directory of your blog</p>
-<p>git cd “directory” - if you need to set the working directory</p>
-<p>git init - to initialize the blog directory as a git repository</p>
-<p>git status - to check</p>
-<p>git remote add origin git@github.com:user/blogname.git</p>
-<p>quarto render</p>
-<p>quarto publish gh-pages</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">git</span> pwd <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-</span> you have to make sure you are working in the directory of your blog</span>
+<span id="cb1-2"></span>
+<span id="cb1-3"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">git</span> cd <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"directory"</span> <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-</span> if you need to set the working directory</span>
+<span id="cb1-4"></span>
+<span id="cb1-5"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">git</span> init <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-</span> to initialize the blog directory as a git repository</span>
+<span id="cb1-6"></span>
+<span id="cb1-7"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">git</span> status <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-</span> to check </span>
+<span id="cb1-8"></span>
+<span id="cb1-9"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">git</span> remote add origin git@github.com:user/blogname.git</span>
+<span id="cb1-10"></span>
+<span id="cb1-11"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">quarto</span> render</span>
+<span id="cb1-12"></span>
+<span id="cb1-13"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">quarto</span> publish gh-pages </span></code></pre></div></div>
 <section id="add-the-blog-to-github-using-github-actions" class="level3">
 <h3 class="anchored" data-anchor-id="add-the-blog-to-github-using-github-actions">Add the blog to GitHub using GitHub Actions</h3>
 <p>Enter your GitHub account and create a new repository</p>
-<p>git add –all - to add all the untracked files (shown with the git status command) to the repository</p>
-<p>git commit -m “message to track the changes” - to commit all the changes made</p>
-<p>git push -u origin main</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">git</span> add <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">--all</span> <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-</span> to add all the untracked files <span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">(</span><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">shown</span> with the git status command<span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">)</span> <span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">to</span> the repository</span>
+<span id="cb2-2"></span>
+<span id="cb2-3"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">git</span> commit <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-m</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"message to track the changes"</span> <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-</span> to commit all the changes made</span>
+<span id="cb2-4"></span>
+<span id="cb2-5"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">git</span> push <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-u</span> origin main</span></code></pre></div></div>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>You have to follow this three steps every time you make changes in your Quarto blog and want to push them to your GitHub repository.</p>
+</div>
+</div>
+</div>
 <p>For more information on how to automate the publishing of your blog you can follow this <a href="https://quarto.org/docs/publishing/github-pages.html#github-action">Tutorial on using GitHub Actions.</a></p>
 
 
