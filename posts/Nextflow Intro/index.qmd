@@ -1,0 +1,9 @@
+---
+title: "Nextflow Intro"
+author: "Lara Leal"
+date: "2025-10-08"
+categories: [code]
+image: "Nextflow.png"
+---
+
+![](Nextflow.png){.post-header}
