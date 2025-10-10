@@ -26,15 +26,17 @@
 <p>Workflow managers allow you to develop an automated pipeline from your scripts that can then be run on a variety of systems.</p>
 <p>The manager then coordinates the deployment of the scripts in the appropriate sequence, monitors the jobs, handles the file transfers between scripts, gathers the output, and handles re-execution of failed jobs for you. Workflow managed pipelines can run containers, which eliminates software installation and version conflicts.</p>
 <p>There are two main workflow managers: <a href="https://www.snakemake.io">snakemake</a> and <a href="https://www.nextflow.io">nextflow</a>.</p>
-<section id="netflow" class="level2">
-<h2 class="anchored" data-anchor-id="netflow"><strong>Netflow</strong></h2>
+<section id="nextflow" class="level2">
+<h2 class="anchored" data-anchor-id="nextflow"><strong>Nextflow</strong></h2>
 <p>In nextflow, your scripts are turned into processes, connected by channels that contain the data - input, output etc. The order of the processes, and their interaction with each other, is specfied in the workflow scope.</p>
+<p><img src="https://Lara-llh.github.io/MedBioInfo_blog/posts/Nextflow Intro/channel-process_fqc.png" class="img-fluid"></p>
+<p>Important things about nextflow: - 1. The <code>script</code> can be written in any language. - The modularity of the process allows to re-use existing scripts and processes easily. - 2. The functional processes are separated from the executive ones, therefore the pipelines are higly interoperable and portable. - 3. Pipelines can be very reproducible if they are integrated with version control tools (like git or bitbucket) and container technologies (apptainer or docker). - 4. They are scalable, you can strat testing with just a couple of samples and easily scale up to hundreds or thusands. Processes are run in parallele automatically when possible. - 5. It resumes executions. Autimatically checks the processes and can resume from a point of failure without having to re-compute already completed parts. - 6. It’s open source.</p>
 
 
 </section>
 
  ]]></description>
-  <category>code</category>
+  <category>info</category>
   <guid>https://Lara-llh.github.io/MedBioInfo_blog/posts/Nextflow Intro/</guid>
   <pubDate>Wed, 08 Oct 2025 00:00:00 GMT</pubDate>
   <media:content url="https://Lara-llh.github.io/MedBioInfo_blog/posts/Nextflow Intro/Nextflow.png" medium="image" type="image/png" height="23" width="144"/>

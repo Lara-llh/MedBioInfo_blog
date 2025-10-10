@@ -39,7 +39,7 @@
     "href": "index.html",
     "title": "How to make a quatro blog",
     "section": "",
-    "text": "Welcome To My Blog\n\n\n\nnews\n\n\n\n\n\n\n\nTristan O’Malley\n\n\nOct 3, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\nPost With Code\n\n\n\nnews\n\ncode\n\nanalysis\n\n\n\n\n\n\n\nHarlow Malloc\n\n\nOct 6, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\nHow to make a Quarto blog\n\n\n\ncode\n\n\n\n\n\n\n\nLara Leal\n\n\nOct 6, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\nWorking with environments\n\n\n\ncode\n\n\n\n\n\n\n\nLara Leal\n\n\nOct 7, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\nHow to use and create containers\n\n\n\ncode\n\n\n\n\n\n\n\nLara Leal\n\n\nOct 7, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\nNextflow Intro\n\n\n\ncode\n\n\n\n\n\n\n\nLara Leal\n\n\nOct 8, 2025\n\n\n\n\n\n\nNo matching items"
+    "text": "Welcome To My Blog\n\n\n\nnews\n\n\n\n\n\n\n\nTristan O’Malley\n\n\nOct 3, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\nPost With Code\n\n\n\nnews\n\ncode\n\nanalysis\n\n\n\n\n\n\n\nHarlow Malloc\n\n\nOct 6, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\nHow to make a Quarto blog\n\n\n\ncode\n\n\n\n\n\n\n\nLara Leal\n\n\nOct 6, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\nWorking with environments\n\n\n\ncode\n\n\n\n\n\n\n\nLara Leal\n\n\nOct 7, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\nHow to use and create containers\n\n\n\ncode\n\n\n\n\n\n\n\nLara Leal\n\n\nOct 7, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\nNextflow Intro\n\n\n\ninfo\n\n\n\n\n\n\n\nLara Leal\n\n\nOct 8, 2025\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/how-to-make-a-quarto-blog/index.html",
@@ -56,11 +56,11 @@
     "text": "Workflow managers allow you to develop an automated pipeline from your scripts that can then be run on a variety of systems.\nThe manager then coordinates the deployment of the scripts in the appropriate sequence, monitors the jobs, handles the file transfers between scripts, gathers the output, and handles re-execution of failed jobs for you. Workflow managed pipelines can run containers, which eliminates software installation and version conflicts.\nThere are two main workflow managers: snakemake and nextflow."
   },
   {
-    "objectID": "posts/Nextflow Intro/index.html#netflow",
-    "href": "posts/Nextflow Intro/index.html#netflow",
+    "objectID": "posts/Nextflow Intro/index.html#nextflow",
+    "href": "posts/Nextflow Intro/index.html#nextflow",
     "title": "Nextflow Intro",
-    "section": "Netflow",
-    "text": "Netflow\nIn nextflow, your scripts are turned into processes, connected by channels that contain the data - input, output etc. The order of the processes, and their interaction with each other, is specfied in the workflow scope."
+    "section": "Nextflow",
+    "text": "Nextflow\nIn nextflow, your scripts are turned into processes, connected by channels that contain the data - input, output etc. The order of the processes, and their interaction with each other, is specfied in the workflow scope.\n\nImportant things about nextflow: - 1. The script can be written in any language. - The modularity of the process allows to re-use existing scripts and processes easily. - 2. The functional processes are separated from the executive ones, therefore the pipelines are higly interoperable and portable. - 3. Pipelines can be very reproducible if they are integrated with version control tools (like git or bitbucket) and container technologies (apptainer or docker). - 4. They are scalable, you can strat testing with just a couple of samples and easily scale up to hundreds or thusands. Processes are run in parallele automatically when possible. - 5. It resumes executions. Autimatically checks the processes and can resume from a point of failure without having to re-compute already completed parts. - 6. It’s open source."
   },
   {
     "objectID": "posts/Working-with-environments/index.html",
