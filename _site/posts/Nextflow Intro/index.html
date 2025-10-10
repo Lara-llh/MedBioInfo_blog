@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Lara Leal">
-<meta name="dcterms.date" content="2025-10-06">
+<meta name="dcterms.date" content="2025-10-08">
 
-<title>How to make a Quarto blog – MedBioInfo Applied Bioinformatics blog by Lara</title>
+<title>Nextflow Intro – MedBioInfo Applied Bioinformatics blog by Lara</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,41 +21,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -299,10 +264,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../posts.qmd"> 
-<span class="menu-text">Posts</span></a>
-  </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/"> <i class="bi bi-github" role="img">
 </i> 
@@ -325,9 +286,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-page">
-      <h1 class="title">How to make a Quarto blog</h1>
+      <h1 class="title">Nextflow Intro</h1>
                                 <div class="quarto-categories">
-                <div class="quarto-category">code</div>
+                <div class="quarto-category">info</div>
               </div>
                   </div>
   </div>
@@ -345,7 +306,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">October 6, 2025</p>
+        <p class="date">October 8, 2025</p>
       </div>
     </div>
     
@@ -365,69 +326,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<p><img src="quartoblogimage.jpg" class="post-header img-fluid"></p>
-<p>In this post we are going to learn how to create a Quarto blog.</p>
-<section id="part-1-create-the-blog" class="level1">
-<h1><strong>Part 1: Create the blog</strong></h1>
-<p>The first step is to create a Quarto blog project. In order to do so, you go to View and open the Command Palette in VScode and then type Quarto: Create Project. Select Blog project and choose the name and location in your computer.</p>
-</section>
-<section id="part-2-edit" class="level1">
-<h1><strong>Part 2: Edit</strong></h1>
-<p>Create a new post by generating a new folder in the posts folder of your Quarto blog. Inside this new folder create a new index.qmd file.</p>
-<p>This file should contain some variations of the following information between two lines of —:</p>
-<ul>
-<li>title: “Title”</li>
-<li>author: “your name”</li>
-<li>date: “YYYY-MM-DD”</li>
-<li>categories: []</li>
-<li>image: “image.jpg”</li>
-</ul>
-<p>After this coding information you include the content you want to have in your blog.</p>
-<p>There is a lot of options for the code. Some useful resorces to explore the different alternatives that you can integrate in your code are:</p>
-<ul>
-<li><a href="https://quarto.org/docs/websites/website-listings.html">Listings</a></li>
-<li><a href="https://quarto.org/docs/output-formats/html-code.html">Executable code</a></li>
-<li><a href="https://quarto.org/docs/output-formats/html-themes.html">Themes</a></li>
-<li><a href="https://quarto.org/docs/output-formats/html-lightbox-figures.html">Images formating / Lightbox figures</a></li>
-</ul>
-</section>
-<section id="part-3-publish-your-blog" class="level1">
-<h1><strong>Part 3: Publish your blog</strong></h1>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> pwd <span class="at">-</span> you have to make sure you are working in the directory of your blog</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> cd <span class="st">"directory"</span> <span class="at">-</span> if you need to set the working directory</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> init <span class="at">-</span> to initialize the blog directory as a git repository</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> status <span class="at">-</span> to check </span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> remote add origin git@github.com:user/blogname.git</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> render</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> publish gh-pages </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<section id="add-the-blog-to-github-using-github-actions" class="level3">
-<h3 class="anchored" data-anchor-id="add-the-blog-to-github-using-github-actions">Add the blog to GitHub using GitHub Actions</h3>
-<p>Enter your GitHub account and create a new repository</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add <span class="at">--all</span> <span class="at">-</span> to add all the untracked files <span class="er">(</span><span class="ex">shown</span> with the git status command<span class="kw">)</span> <span class="ex">to</span> the repository</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"message to track the changes"</span> <span class="at">-</span> to commit all the changes made</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push <span class="at">-u</span> origin main</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="callout callout-style-simple callout-none no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<p>You have to follow this three steps every time you make changes in your Quarto blog and want to push them to your GitHub repository.</p>
-</div>
-</div>
-</div>
-<p>For more information on how to automate the publishing of your blog you can follow this <a href="https://quarto.org/docs/publishing/github-pages.html#github-action">Tutorial on using GitHub Actions.</a></p>
+<p><img src="Nextflow.png" class="post-header img-fluid"></p>
+<p>Workflow managers allow you to develop an automated pipeline from your scripts that can then be run on a variety of systems.</p>
+<p>The manager then coordinates the deployment of the scripts in the appropriate sequence, monitors the jobs, handles the file transfers between scripts, gathers the output, and handles re-execution of failed jobs for you. Workflow managed pipelines can run containers, which eliminates software installation and version conflicts.</p>
+<p>There are two main workflow managers: <a href="https://www.snakemake.io">snakemake</a> and <a href="https://www.nextflow.io">nextflow</a>.</p>
+<section id="nextflow" class="level2">
+<h2 class="anchored" data-anchor-id="nextflow"><strong>Nextflow</strong></h2>
+<p>In nextflow, your scripts are turned into processes, connected by channels that contain the data - input, output etc. The order of the processes, and their interaction with each other, is specfied in the workflow scope.</p>
+<p><img src="channel-process_fqc.png" class="img-fluid"></p>
+<p>Important things about nextflow: - 1. The <code>script</code> can be written in any language. - The modularity of the process allows to re-use existing scripts and processes easily. - 2. The functional processes are separated from the executive ones, therefore the pipelines are higly interoperable and portable. - 3. Pipelines can be very reproducible if they are integrated with version control tools (like git or bitbucket) and container technologies (apptainer or docker). - 4. They are scalable, you can strat testing with just a couple of samples and easily scale up to hundreds or thusands. Processes are run in parallele automatically when possible. - 5. It resumes executions. Autimatically checks the processes and can resume from a point of failure without having to re-compute already completed parts. - 6. It’s open source.</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
