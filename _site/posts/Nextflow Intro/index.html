@@ -22,6 +22,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -334,9 +369,109 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="nextflow"><strong>Nextflow</strong></h2>
 <p>In nextflow, your scripts are turned into processes, connected by channels that contain the data - input, output etc. The order of the processes, and their interaction with each other, is specfied in the workflow scope.</p>
 <p><img src="channel-process_fqc.png" class="img-fluid"></p>
-<p>Important things about nextflow: - 1. The <code>script</code> can be written in any language. - The modularity of the process allows to re-use existing scripts and processes easily. - 2. The functional processes are separated from the executive ones, therefore the pipelines are higly interoperable and portable. - 3. Pipelines can be very reproducible if they are integrated with version control tools (like git or bitbucket) and container technologies (apptainer or docker). - 4. They are scalable, you can strat testing with just a couple of samples and easily scale up to hundreds or thusands. Processes are run in parallele automatically when possible. - 5. It resumes executions. Autimatically checks the processes and can resume from a point of failure without having to re-compute already completed parts. - 6. It’s open source.</p>
+<p>Important things about nextflow: - The <code>script</code> can be written in any language. - The modularity of the process allows to re-use existing scripts and processes easily. - The functional processes are separated from the executive ones, therefore the pipelines are higly interoperable and portable. - Pipelines can be very reproducible if they are integrated with version control tools (like git or bitbucket) and container technologies (apptainer or docker). - They are scalable, you can start testing with just a couple of samples and easily scale up to hundreds or thusands. Processes are run in parallele automatically when possible. - It resumes executions. Automatically checks the processes and can resume from a point of failure without having to re-compute already completed parts. - It’s open source.</p>
+<section id="processes-and-channels" class="level3">
+<h3 class="anchored" data-anchor-id="processes-and-channels">** Processes and Channels**</h3>
+<p>The Netxflow workflows are made by combining different processes. This processes can be written in different lenguages as long as they can be executed by a Linux platform. Each process is executed independently, and different processes only comunicate via a first-in, first-out asynchronous queue. These queues are called channels, and any process can defined them as input and output. The interaction between these processes and the execution of the workflow is defined by these input output declarations.</p>
+<p>This is how a basic Nextflow pipeline process block would look like:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">process</span> PROCESS_NAME{</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="ex">input:</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>      <span class="ex">data</span> z</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>      <span class="ex">data</span> y</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>      <span class="ex">data</span> x</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="ex">//</span> directives</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="ex">container</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="ex">script:</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>      <span class="ex">task1</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>      <span class="ex">task2</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>      <span class="ex">task3</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="ex">output:</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>      <span class="ex">output</span> x</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>      <span class="ex">output</span> y</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>      <span class="ex">output</span> z</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="er">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="execution-abstraction-running-fastqc" class="level3">
+<h3 class="anchored" data-anchor-id="execution-abstraction-running-fastqc"><strong>Execution abstraction running fastQC</strong></h3>
+<p>In Nextflow, the process defines what comand or script is executed, and the executor determines how that script is runned. By default, the processes are excuted on the local computer. The local executor is very useful in workflow development and testing, but when running real computational workflows other platforms are required, like a high-performance computing or cloud platform.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">-A</span> project_ID <span class="at">-t</span> 15:00 <span class="at">-n</span> 1 fastqc <span class="at">--noextract</span> <span class="at">-o</span> fastqc data data/sample_1.fastq.gz data/sample_2.fastq.gz </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="nextflow-code-example" class="level3">
+<h3 class="anchored" data-anchor-id="nextflow-code-example"><strong>Nextflow code example</strong></h3>
+<p>Script:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/usr/bin/env nextflow</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">params.greeting</span> = <span class="st">'Hello world!'</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="ex">greeting_ch</span> = Channel.of<span class="er">(</span><span class="ex">params.greeting</span><span class="kw">)</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="ex">process</span> SPLITLETTERS {</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="ex">input:</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="ex">val</span> x</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="ex">output:</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="ex">path</span> <span class="st">'chunk_*'</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="ex">script:</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"""</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="st">    printf '</span><span class="va">$x</span><span class="st">' | split -b 6 - chunk_</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="st">    """</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="er">}</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="ex">process</span> CONVERTTOUPPER {</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    <span class="ex">input:</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    <span class="ex">path</span> y</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    <span class="ex">output:</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    <span class="ex">stdout</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    <span class="ex">script:</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>    <span class="st">"""</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="st">    cat </span><span class="va">$y</span><span class="st"> | tr '[a-z]' '[A-Z]' </span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="st">    """</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="er">}</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="ex">workflow</span> {</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>    <span class="ex">letters_ch</span> = SPLITLETTERS<span class="er">(</span><span class="ex">greeting_ch</span><span class="kw">)</span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>    <span class="ex">results_ch</span> = CONVERTTOUPPER<span class="er">(</span><span class="fu">letters_ch.flatten()</span><span class="kw">)</span></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>    <span class="ex">results_ch.view{</span> it }</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a><span class="er">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>To run it:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> run nextflow run hello.nf</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The output:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a> <span class="ex">N</span> E X T F L O W   ~  version 25.04.7</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Launching</span> <span class="kw">`</span><span class="ex">hello.nf</span><span class="kw">`</span> <span class="pp">[</span><span class="ss">jolly_faraday</span><span class="pp">]</span> DSL2 <span class="at">-</span> revision: f5e335f983</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="ex">executor</span> <span class="op">&gt;</span>  local <span class="er">(</span><span class="ex">3</span><span class="kw">)</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="ex">[96/fd5f07]</span> SPLITLETTERS <span class="er">(</span><span class="ex">1</span><span class="kw">)</span>   <span class="ex">[100%]</span> 1 of 1 ✔</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="ex">[7e/dad424]</span> CONVERTTOUPPER <span class="er">(</span><span class="ex">2</span><span class="kw">)</span> <span class="ex">[100%]</span> 2 of 2 ✔</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="ex">HELLO</span> </span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="ex">WORLD!</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="modify-and-resume" class="level3">
+<h3 class="anchored" data-anchor-id="modify-and-resume"><strong>Modify and resume</strong></h3>
+<p>Nextflow keeps track of all the processes executed and if you modify some prts of your script, only the processes that are changed will be re-executed. In this case, it will use the cached result from the processes that weren’t changed.</p>
+</section>
+<section id="workflow-parameters" class="level3">
+<h3 class="anchored" data-anchor-id="workflow-parameters"><strong>Workflow parameters</strong></h3>
+<p>The workflow parameters are simply declared by prepending the prefix params to a variable name, separated by a ‘.’ (e.g.&nbsp;params.greetings). Their value can be specified on the comand line:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> run nextflow run hello.nf <span class="at">-resume</span> <span class="at">--greeting</span> <span class="st">'Bonjour le monde!'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="clean-up-nextflow" class="level3">
+<h3 class="anchored" data-anchor-id="clean-up-nextflow"><strong>Clean up Nextflow</strong></h3>
+<p>Periodically, it makes sense to clean up your nextflow working directory. You can do that manually, but the non-descriptive nature of the file system makes that difficult.</p>
+<p>Nextflow keeps track of your runs that have been executed from the current directory. The folowing comand will show you the executions log and runtime information of all the runs.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> run nextflow log</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>You can clean the porject cache and th work directories with the folowing comand:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">nextflow</span> clean</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>You can also specify the run or runs that you want to eliminate. <a href="https://www.nextflow.io/docs/latest/reference/cli.html#clean">Here</a> you can find a more extensive explanation of the different options.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
