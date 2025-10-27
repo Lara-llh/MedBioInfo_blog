@@ -1,0 +1,100 @@
+---
+title: "Nf-Core"
+author: "Lara Leal"
+date: "2025-10-09"
+categories: [info]
+image: "nf-core_logo"
+---
+![](nf-core-logo_big.png){.post-header}
+
+[Nf-core](https://nf-co.re) is a very active community around nextflow. All nf-core pipelines are open source and the source code is available on github. The pipelines are developed by volunteers, who can have a very varied background.
+
+While nf-core is fantastic, please be aware that their pipelines are developed and maintained (or not maintained) by the community. You should not use the pipelines as a black box, but as a tool you need to understand. The responsibility for the end results is still yours, so you need to see if your data is suited for the analysis (good enough quality?), and if the analysis is suitable for your data!
+
+
+## **Why can these pipelines be interesting for you?**
+
+Nf-core provides already developed pipelines for many different data sets. Likely, a pipelines exists that you can use on your data. The documentation of the pipelines follows nf-core guidelines and is extensive and informative - it is easy to understand what the pipeline does and how it works. All output is explained in detail, with links to more extensive documentation.
+
+Once you have understood how to run a nf-core pipeline their consistency and standardization means you will know most about running a different one.
+
+Using the nf-core launcher, will check your input, and automatically generate commands and configuration files.
+
+And this is on top of all nextflow functionality such as portability, reproducibility and the resume-at-fault option!
+
+## **nf-core: test pipeline**
+
+In this section, we will create a pixi environment containing nf-core and nextflow. Once we’ve done that, we will turn our attention to nf-core to run up a pipeline with the build in test data. This is a good way to test the setup, and to familiarize yourself with the output of the pipeline.
+
+### **Set up your Pixi environment**
+
+In the course directory initialize an environment using the following command:
+```bash
+pixi init nextflow_test -c conda-forge -c bioconda
+```
+
+Change directory into the project you created, and list the files there:
+```bash
+cd name_nextflow
+ls
+```
+Add nf-core and Nextflow:
+```bash
+pixi add nextflow nf-core
+```
+
+And just check that everything worked, check the version of nextflow, get the nf-core help, and run the nextflow Hello World:
+```bash
+pixi run nextflow -version
+pixi run nf-core --help
+pixi run nextflow run hello
+```
+
+While apptainer is sticky loaded on this server, it won’t always be the case for other servers. So, if you are running within a Linux environment (and not otherwise), you can add apptainer with the add command.
+
+### **Configuration profile**
+
+Since we are working on a server with a configuration profile established, but not available via nf-core, you need to download it to your working directory:
+```bash
+wget https://raw.githubusercontent.com/hpc2n/intro-course/master/exercises/NEXTFLOW/INTERACTIVE/hpc2n.config
+```
+Here is the configuration profile on HPC2N from the above link. The most important things we need to pay attention to are the `max_memory`, `max_cpus`, and `max_time` settings. Your jobs won’t be able to exceed these maximum values.
+
+To use the config file with nextflow you need to add our compute project under project. Use single quotes, as seen in the other entries in the file.
+```bash
+// Config profile for HPC2N
+params {
+  config_profile_description = 'Cluster profile for HPC2N'
+  config_profile_contact = '----'
+  config_profile_url = 'https://www.hpc2n.umu.se/'
+  project = null
+  clusterOptions = null
+  max_memory = 128.GB
+  max_cpus = 28
+  max_time = 168.h
+  email = '-----'
+}
+
+singularity {
+  enabled = true
+}
+
+process {
+  executor = 'slurm'
+  clusterOptions = { "-A $params.project ${params.clusterOptions ?: ''}" }
+}
+```
+### **Run the pipeline with a test profile**
+
+As an example we willl run a [Sarek pipeline](https://nf-co.re/sarek/3.4.2/), which is a variant calling pipeline:
+```bash
+pixi run nextflow run nf-core/sarek -profile test --outdir sarek_test -c hpc2n.config
+```
+Let’s have a look at the components of the above command:
+
+* `pixi run`: we are using our pixi environment to run the following commands
+* `nextflow run`: run the following with nextflow
+* `nf-core/sarek`: name/ location of the pipeline
+* `-profile test`: use the test profile for this run - this uses the build in test data etc. On servers with a nf-core configuration file you would list the name of the profile here.
+* `--outdir sarek_test`: name and location of the directory for the pipeline output
+* `-c hpc2n.config`: name and location of the configuration file for the server

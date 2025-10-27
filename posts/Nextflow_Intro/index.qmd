@@ -20,14 +20,16 @@ In nextflow, your scripts are turned into processes, connected by channels that 
 ![](channel-process_fqc.png)
 
 Important things about nextflow:
-- The `script` can be written in any language. - The modularity of the process allows to re-use existing scripts and processes easily. 
-- The functional processes are separated from the executive ones, therefore the pipelines are higly interoperable and portable. 
-- Pipelines can be very reproducible if they are integrated with version control tools (like git or bitbucket) and container technologies (apptainer or docker).
-- They are scalable, you can start testing with just a couple of samples and easily scale up to hundreds or thusands. Processes are run in parallele automatically when possible. 
-- It resumes executions. Automatically checks the processes and can resume from a point of failure without having to re-compute already completed parts. 
-- It's open source. 
 
-### ** Processes and Channels**
+  - The `script` can be written in any language. 
+  - The modularity of the process allows to re-use existing scripts and processes easily. 
+  - The functional processes are separated from the executive ones, therefore the pipelines are higly interoperable and portable. 
+  - Pipelines can be very reproducible if they are integrated with version control tools (like git or bitbucket) and container technologies (apptainer or docker).
+  - They are scalable, you can start testing with just a couple of samples and easily scale up to hundreds or thusands. Processes are run in parallele automatically when possible. 
+  - It resumes executions. Automatically checks the processes and can resume from a point of failure without having to re-compute already completed parts. 
+  - It's open source. 
+
+### **Processes and Channels**
 
 The Netxflow workflows are made by combining different processes. This processes can be written in different lenguages as long as they can be executed by a Linux platform. Each process is executed independently, and different processes only comunicate via a first-in, first-out asynchronous queue. These queues are called channels, and any process can defined them as input and output. The interaction between these processes and the execution of the workflow is defined by these input output declarations. 
 
