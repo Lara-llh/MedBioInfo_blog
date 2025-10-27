@@ -2,38 +2,42 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://Lara-llh.github.io/MedBioInfo_blog/about.html</loc>
-    <lastmod>2025-10-27T15:35:22.695Z</lastmod>
+    <lastmod>2025-10-27T16:20:06.275Z</lastmod>
   </url>
   <url>
     <loc>https://Lara-llh.github.io/MedBioInfo_blog/posts/welcome/index.html</loc>
-    <lastmod>2025-10-27T15:35:22.721Z</lastmod>
+    <lastmod>2025-10-27T16:20:06.302Z</lastmod>
   </url>
   <url>
     <loc>https://Lara-llh.github.io/MedBioInfo_blog/posts/how-to-use-and-create-containers/index.html</loc>
-    <lastmod>2025-10-27T15:35:22.721Z</lastmod>
+    <lastmod>2025-10-27T16:20:06.302Z</lastmod>
   </url>
   <url>
     <loc>https://Lara-llh.github.io/MedBioInfo_blog/posts/post-with-code/index.html</loc>
-    <lastmod>2025-10-27T15:35:22.721Z</lastmod>
-  </url>
-  <url>
-    <loc>https://Lara-llh.github.io/MedBioInfo_blog/index.html</loc>
-    <lastmod>2025-10-27T15:35:22.695Z</lastmod>
+    <lastmod>2025-10-27T16:20:06.302Z</lastmod>
   </url>
   <url>
     <loc>https://Lara-llh.github.io/MedBioInfo_blog/posts/Nextflow_RNAseq_pipeline/index.html</loc>
-    <lastmod>2025-10-27T15:35:22.697Z</lastmod>
+    <lastmod>2025-10-27T16:20:06.277Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Lara-llh.github.io/MedBioInfo_blog/index.html</loc>
+    <lastmod>2025-10-27T16:20:06.275Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Lara-llh.github.io/MedBioInfo_blog/posts/Nf-core/index.html</loc>
+    <lastmod>2025-10-27T16:20:06.277Z</lastmod>
   </url>
   <url>
     <loc>https://Lara-llh.github.io/MedBioInfo_blog/posts/how-to-make-a-quarto-blog/index.html</loc>
-    <lastmod>2025-10-27T15:35:22.698Z</lastmod>
+    <lastmod>2025-10-27T16:20:06.279Z</lastmod>
   </url>
   <url>
     <loc>https://Lara-llh.github.io/MedBioInfo_blog/posts/Nextflow_Intro/index.html</loc>
-    <lastmod>2025-10-27T15:35:22.697Z</lastmod>
+    <lastmod>2025-10-27T16:20:06.276Z</lastmod>
   </url>
   <url>
     <loc>https://Lara-llh.github.io/MedBioInfo_blog/posts/Working-with-environments/index.html</loc>
-    <lastmod>2025-10-27T15:35:22.698Z</lastmod>
+    <lastmod>2025-10-27T16:20:06.278Z</lastmod>
   </url>
 </urlset>

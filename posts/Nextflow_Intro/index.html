@@ -369,9 +369,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="nextflow"><strong>Nextflow</strong></h2>
 <p>In nextflow, your scripts are turned into processes, connected by channels that contain the data - input, output etc. The order of the processes, and their interaction with each other, is specfied in the workflow scope.</p>
 <p><img src="channel-process_fqc.png" class="img-fluid"></p>
-<p>Important things about nextflow: - The <code>script</code> can be written in any language. - The modularity of the process allows to re-use existing scripts and processes easily. - The functional processes are separated from the executive ones, therefore the pipelines are higly interoperable and portable. - Pipelines can be very reproducible if they are integrated with version control tools (like git or bitbucket) and container technologies (apptainer or docker). - They are scalable, you can start testing with just a couple of samples and easily scale up to hundreds or thusands. Processes are run in parallele automatically when possible. - It resumes executions. Automatically checks the processes and can resume from a point of failure without having to re-compute already completed parts. - It’s open source.</p>
+<p>Important things about nextflow:</p>
+<ul>
+<li>The <code>script</code> can be written in any language.</li>
+<li>The modularity of the process allows to re-use existing scripts and processes easily.</li>
+<li>The functional processes are separated from the executive ones, therefore the pipelines are higly interoperable and portable.</li>
+<li>Pipelines can be very reproducible if they are integrated with version control tools (like git or bitbucket) and container technologies (apptainer or docker).</li>
+<li>They are scalable, you can start testing with just a couple of samples and easily scale up to hundreds or thusands. Processes are run in parallele automatically when possible.</li>
+<li>It resumes executions. Automatically checks the processes and can resume from a point of failure without having to re-compute already completed parts.</li>
+<li>It’s open source.</li>
+</ul>
 <section id="processes-and-channels" class="level3">
-<h3 class="anchored" data-anchor-id="processes-and-channels">** Processes and Channels**</h3>
+<h3 class="anchored" data-anchor-id="processes-and-channels"><strong>Processes and Channels</strong></h3>
 <p>The Netxflow workflows are made by combining different processes. This processes can be written in different lenguages as long as they can be executed by a Linux platform. Each process is executed independently, and different processes only comunicate via a first-in, first-out asynchronous queue. These queues are called channels, and any process can defined them as input and output. The interaction between these processes and the execution of the workflow is defined by these input output declarations.</p>
 <p>This is how a basic Nextflow pipeline process block would look like:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">process</span> PROCESS_NAME{</span>
