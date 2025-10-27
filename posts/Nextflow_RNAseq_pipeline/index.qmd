@@ -1,0 +1,563 @@
+---
+title: "Nextflow RNAseq pipeline"
+author: "Lara Leal"
+date: "2025-10-09"
+categories: [info]
+image: "dna-7094409_1280.jpg"
+---
+![](dna-7094409_1280.jpg){.post-header}
+
+In a real-world biomedical example, we will implement a proof of concept workflow that: 
+
+    1. Indexes the transcriptome file
+    2. Performs quality controls
+    3. Performs quantifications
+    4. Creates a MultiQC report
+
+In order to do so, 7 scripts will be used, an each of them builds upon the other. The scripts will use the following third-party tools: 
+
+    - Salmon: tool for quantifing molecules known as transcripts through a type of data called RNA-seq. 
+    - FastQC: tool to perform control for high throughput sequence data, a way to assess the quality of your data. 
+    - MultiQC: searches a given directory for analysis logs and compiles a HTML report. It's a widely used tool, perfect for summarizing the output from numerous bioinformatics tools. 
+
+## **Set the executor**
+
+So far we have used the local executor, but the pipeline we are going to work with now is more complicated and requires more computing power. We will set `slurm` as the executor, in order to do so we will change it in a file called `nextflow.config`. It should loook like the following:
+
+```bash
+ process{
+    executor = "slurm"
+    time = '2.h'  // Set default time limit for all processes
+    
+    // Other settings
+    cpus = 4
+}
+
+resume = true
+singularity.enabled = true
+
+executor {
+    account = 'your_project_account'
+}
+```
+With this script we:
+
+    - Set the executor for every process to slurm.
+    - Set resume to true, so it is automatically used for all our runs (which means we do not have to specify this in our nextflow run command anymore).
+    - Enable singularity and set some singularity run options.
+    - Specify the account name for the slurm execution.
+
+This `nextflow.config` file is implicitly called when we execute nextflow from the folder it is in. We don't need to explicitily name it in the run command. 
+
+## **Define the workflow parameters**
+
+Parameter are inputs and options that can be changed when the workflow is executed. 
+
+An example found in `script1.nf` of the training material is: 
+
+```bash
+params.reads = "$projectDir/data/ggal/gut_{1,2}.fq"
+params.transcriptome_file = "$projectDir/data/ggal/transcriptome.fa"
+params.multiqc = "$projectDir/multiqc"
+
+println "reads: $params.reads"
+```
+And it is run with the following command:
+```bash
+pixi run nextflow run script1.nf
+```
+Now we are going to modify the script adding a fourth parameter called `outdir` and we will set it to the default path that will be used as the workflow output directory. 
+```bash
+#!/usr/bin/env nextflow
+
+params.reads = "$projectDir/data/ggal/gut_{1,2}.fq"
+params.transcriptome_file = "$projectDir/data/ggal/transcriptome.fa"
+params.multiqc = "$projectDir/multiqc"
+
+params.outdir = "$projectDir/results"
+
+println "reads: $params.outdir"
+```
+## **Create a transcriptome index file**
+
+In Nextflow you can execute any command or script by using a `process definition`. 
+A process is defined by providing 3 main declarations: the input, the output and the command script. 
+
+Let's add a transcriptome index processing step:
+```bash
+params.reads = "$projectDir/data/ggal/gut_{1,2}.fq"
+params.transcriptome_file = "$projectDir/data/ggal/transcriptome.fa"
+params.multiqc = "$projectDir/multiqc"
+
+params.outdir = "$projectDir/results"
+
+println "reads: $params.outdir"
+
+process INDEX {
+    input:
+    path transcriptome
+    
+    output:
+    path 'salmon_index'
+
+    script:
+    """
+    salmon index --threads $task.cpus -t $transcriptome -i salmon_index
+    """
+}
+```
+Additionally, we have to add a workflow scope containing an input channel definiton and the index process: 
+```bash
+workflow {
+    index_ch = INDEX(file(params.transcriptome_file, checkIfExists: true))
+}
+```
+In this case the `params.transcriptome_file` parameter is used as the input for the index process. The index process (using salmon) creates salmon_index, an indexed transcriptome that is passed as an output to the index_ch channel. 
+
+To run it we will use:
+```bash
+pixi run nextflow run script1.nf 
+```
+
+The workflow will not work because first we have to add Salmon to our environment. 
+```bash
+pixi add salmon
+```
+
+Adding a container to the process and running the tool via the container is more reproducible than adding it to your environment. You can do so the following way:
+```bash
+container 'https://depot.galaxyproject.org/singularity/salmon:1.10.1--h7e5ed60_0'
+```
+Additonally, you can also specify a process specific output directory in the process block. 
+```bash 
+publishDir "$params.outdir/salmon"
+```
+
+Nextflow is big on execution abstraction. Therefore, we will specify the allocated time and cpus for this specific process in the `nextflow.config` file. 
+```bash
+withName:'INDEX'{
+    time = 15.m
+    cpus = 2
+}
+```
+
+The final version of `script1.nf` should look like this:
+```bash
+#!/usr/bin/env nextflow
+
+params.reads = "$projectDir/data/ggal/gut_{1,2}.fq"
+params.transcriptome_file = "$projectDir/data/ggal/transcriptome.fa"
+params.multiqc = "$projectDir/multiqc"
+
+params.outdir = "$projectDir/results"
+
+println "reads: $params.outdir"
+
+process INDEX {
+    input:
+    path transcriptome
+    
+    container 'https://depot.galaxyproject.org/singularity/salmon:1.10.1--h7e5ed60_0'
+    publishDir "$params.outdir/salmon"
+
+    output:
+    path 'salmon_index'
+
+    script:
+    """
+    salmon index --threads $task.cpus -t $transcriptome -i salmon_index
+    """
+}
+
+workflow {
+    index_ch = INDEX(file(params.transcriptome_file, checkIfExists: true))
+}
+```
+
+The `nextflow.config` file should look like this:
+
+```bash
+process{
+    executor = "slurm"
+    time = '2.h'  // Set default time limit for all processes
+    
+    // Other settings
+    cpus = 4
+        
+    withName:'INDEX'{
+        time = 15.m
+        cpus = 2
+    }
+}
+
+resume = true
+singularity.enabled = true
+
+executor {
+    account = ''
+}
+```
+
+Run it using the following command: 
+```bash
+pixi run nextflow run script1.nf 
+```
+
+Another option for this analysis is the following script3.nf
+```bash
+#!/usr/bin/env nextflow
+
+/*
+ * pipeline input parameters
+ */
+params.reads = "$projectDir/data/ggal/gut_{1,2}.fq"
+params.transcriptome_file = "$projectDir/data/ggal/transcriptome.fa"
+params.multiqc = "$projectDir/multiqc"
+params.outdir = "results"
+
+log.info """\
+    R N A S E Q - N F   P I P E L I N E
+    ===================================
+    transcriptome: ${params.transcriptome_file}
+    reads        : ${params.reads}
+    outdir       : ${params.outdir}
+    """
+    .stripIndent()
+
+read_pairs_ch = Channel.fromFilePairs(params.reads)
+read_pairs_ch.view()
+```
+The `read_pairs_ch.view()` command allows us to see how the read_pair_ch channel emits `tuples` composed of two elements, where the first is the read pair prefix and the second is a list representing actual files. 
+It will print something similar to this:
+```bash
+[gut, [/.../data/ggal/gut_1.fq, /.../data/ggal/gut_2.fq]]
+```
+*Tuple: a data structure consisting of multiple parts. 
+
+## **Expression quantification**
+
+We will add a gene expression quantification process to the script and a call to it within the workflow scope. Quantification requires the index transcriptome and RNA-seq read pair fastq files. 
+
+```bash
+#!/usr/bin/env nextflow
+
+/*
+ * pipeline input parameters
+ */
+params.reads = "$projectDir/data/ggal/gut_{1,2}.fq"
+params.transcriptome_file = "$projectDir/data/ggal/transcriptome.fa"
+params.multiqc = "$projectDir/multiqc"
+params.outdir = "results"
+
+log.info """\
+    R N A S E Q - N F   P I P E L I N E
+    ===================================
+    transcriptome: ${params.transcriptome_file}
+    reads        : ${params.reads}
+    outdir       : ${params.outdir}
+    """
+    .stripIndent()
+
+/*
+ * define the `INDEX` process that creates a binary index
+ * given the transcriptome file
+ */
+process INDEX {
+    input:
+    path transcriptome
+
+    container 'https://depot.galaxyproject.org/singularity/salmon:1.10.1--h7e5ed60_0'
+    publishDir "$params.outdir/salmon_INDEX"
+
+
+    output:
+    path 'salmon_index'
+
+    script:
+    """
+    salmon index --threads $task.cpus -t $transcriptome -i salmon_index
+    """
+}
+
+process QUANTIFICATION {
+    input:
+    path salmon_index
+    tuple val(sample_id), path(reads)
+
+    container 'https://depot.galaxyproject.org/singularity/salmon:1.10.1--h7e5ed60_0'
+    publishDir "$params.outdir/salmon_quantification"
+
+
+    output:
+    path "$sample_id"
+
+    script:
+    """
+    salmon quant --threads $task.cpus --libType=U -i $salmon_index -1 ${reads[0]} -2 ${reads[1]} -o $sample_id
+    """
+}
+
+workflow {
+    Channel
+        .fromFilePairs(params.reads, checkIfExists: true)
+        .set { read_pairs_ch }
+
+    index_ch = INDEX(params.transcriptome_file)
+    quant_ch = QUANTIFICATION(index_ch, read_pairs_ch)
+    fastqc_ch = FASTQC(read_pairs_ch)
+    multiqc_ch = MULTIQC(quant_ch.mix(fastqc_ch).collect())
+}
+```
+In the workflow scope, note how the index_ch channel is assigned as output in the INDEX process.
+
+Next, note that the first input channel for the quantification process is the previously declared index_ch, which contains the path to the salmon_index.
+
+Also, note that the second input channel for the quantification process, is the read_pair_ch we just created. This being a tuple composed of two elements (a value: “sample_id” and a list of paths to the fastq reads: “reads”) in order to match the structure of the items emitted by the `fromFilePairs` channel factory.
+
+The script can be run using:
+```bash 
+pixi run nextflow run script4.nf 
+```
+The same script can be executed with more read files, as shown below:
+```bash
+pixi run nextflow run script4.nf --reads 'data/ggal/*_{1,2}.fq'
+```
+
+The quantification process will be executed multiple times. Nextflow parallelizes the execution of your workflow by providing multiple sets of input data to your script. 
+
+The process specific runtime environment definition for quantification can be added to the `nextflow.config` file, leaving the file as follow:
+```bash
+process{
+    executor = "slurm"
+    time = '2.h'  // Set default time limit for all processes
+    
+    // Other settings
+    cpus = 4
+        
+    withName:'INDEX'{
+        time = 15.m
+        cpus = 2
+    }
+
+    withName:'QUANTIFICATION'{
+        time = 10.m
+        cpus = 2
+    }
+}
+
+resume = true
+singularity.enabled = true
+
+executor {
+    account = ''
+}
+```
+
+## **Quality control**
+
+Now we want to add another process using the FastQC to check the samples. The input is the same as the read pairs used in the quantification step. 
+
+In the `script4.nf` file we will have to add the following after the quantification process:
+```bash
+process FASTQC {
+    input:
+    tuple val(sample_id), path(reads)
+
+    container 'oras://community.wave.seqera.io/library/fastqc:0.12.1--104d26ddd9519960'
+    publishDir "$params.outdir/fastqc"
+
+    output:
+    path "fastqc_$sample_id"
+
+    script:
+    """
+    mkdir fastqc_${sample_id}
+    fastqc --noextract -o fastqc_${sample_id} ${reads[0]} ${reads[1]} 
+    """
+}    
+```
+
+And the workflow needs to be updated aswell.
+```bash
+workflow {
+    Channel
+        .fromFilePairs(params.reads, checkIfExists: true)
+        .set { read_pairs_ch }
+
+    index_ch = INDEX(params.transcriptome_file)
+    quant_ch = QUANTIFICATION(index_ch, read_pairs_ch)
+    fastqc_ch = FASTQC(read_pairs_ch)
+```
+
+## **MultiQC**
+
+As a final step we will use MultiQC to generate a final report that will collect the outputs from the quantification and the FastQC processes. 
+
+In the `script4.nf` we will add a new process: 
+```bash
+process MULTIQC {
+    input:
+    path '*'
+
+    container 'community.wave.seqera.io/library/multiqc:1.31--1efbafd542a23882'
+    publishDir "$params.outdir/multiqc"
+
+    output:
+    path 'multiqc_report.html'
+
+    script:
+    """
+    multiqc .
+    """
+}    
+```
+And we will also have to update the workflow:
+```bash
+workflow {
+    Channel
+        .fromFilePairs(params.reads, checkIfExists: true)
+        .set { read_pairs_ch }
+
+    index_ch = INDEX(params.transcriptome_file)
+    quant_ch = QUANTIFICATION(index_ch, read_pairs_ch)
+    fastqc_ch = FASTQC(read_pairs_ch)
+    multiqc_ch = MULTIQC(quant_ch.mix(fastqc_ch).collect())
+}
+```
+
+
+## **SCRIPTS SUMMARY**
+
+Our final `script4.nf` should look like this:
+```bash
+#!/usr/bin/env nextflow
+
+/*
+ * pipeline input parameters
+ */
+params.reads = "$projectDir/data/ggal/gut_{1,2}.fq"
+params.transcriptome_file = "$projectDir/data/ggal/transcriptome.fa"
+params.multiqc = "$projectDir/multiqc"
+params.outdir = "results"
+
+log.info """\
+    R N A S E Q - N F   P I P E L I N E
+    ===================================
+    transcriptome: ${params.transcriptome_file}
+    reads        : ${params.reads}
+    outdir       : ${params.outdir}
+    """
+    .stripIndent()
+
+/*
+ * define the `INDEX` process that creates a binary index
+ * given the transcriptome file
+ */
+process INDEX {
+    input:
+    path transcriptome
+
+    container 'https://depot.galaxyproject.org/singularity/salmon:1.10.1--h7e5ed60_0'
+    publishDir "$params.outdir/salmon_INDEX"
+
+
+    output:
+    path 'salmon_index'
+
+    script:
+    """
+    salmon index --threads $task.cpus -t $transcriptome -i salmon_index
+    """
+}
+
+process QUANTIFICATION {
+    input:
+    path salmon_index
+    tuple val(sample_id), path(reads)
+
+    container 'https://depot.galaxyproject.org/singularity/salmon:1.10.1--h7e5ed60_0'
+    publishDir "$params.outdir/salmon_quantification"
+
+
+    output:
+    path "$sample_id"
+
+    script:
+    """
+    salmon quant --threads $task.cpus --libType=U -i $salmon_index -1 ${reads[0]} -2 ${reads[1]} -o $sample_id
+    """
+}
+
+process FASTQC {
+    input:
+    tuple val(sample_id), path(reads)
+
+    container 'oras://community.wave.seqera.io/library/fastqc:0.12.1--104d26ddd9519960'
+    publishDir "$params.outdir/fastqc"
+
+    output:
+    path "fastqc_$sample_id"
+
+    script:
+    """
+    mkdir fastqc_${sample_id}
+    fastqc --noextract -o fastqc_${sample_id} ${reads[0]} ${reads[1]} 
+    """
+}    
+
+process MULTIQC {
+    input:
+    path '*'
+
+    container 'community.wave.seqera.io/library/multiqc:1.31--1efbafd542a23882'
+    publishDir "$params.outdir/multiqc"
+
+    output:
+    path 'multiqc_report.html'
+
+    script:
+    """
+    multiqc .
+    """
+}    
+
+
+workflow {
+    Channel
+        .fromFilePairs(params.reads, checkIfExists: true)
+        .set { read_pairs_ch }
+
+    index_ch = INDEX(params.transcriptome_file)
+    quant_ch = QUANTIFICATION(index_ch, read_pairs_ch)
+    fastqc_ch = FASTQC(read_pairs_ch)
+    multiqc_ch = MULTIQC(quant_ch.mix(fastqc_ch).collect())
+}
+```
+
+And the `nextflow.config` file:
+```bash
+process{
+    executor = "slurm"
+    time = '2.h'  // Set default time limit for all processes
+    
+    // Other settings
+    cpus = 4
+        
+    withName:'INDEX'{
+        time = 15.m
+        cpus = 2
+    }
+
+    withName:'QUANTIFICATION'{
+        time = 10.m
+        cpus = 2
+    }
+}
+
+resume = true
+singularity.enabled = true
+
+executor {
+    account = ''
+}
+```
