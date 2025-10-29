@@ -197,6 +197,263 @@ font-style: inherit;">-c</span> hpc2n.config</span></code></pre></div></div>
   <media:content url="https://Lara-llh.github.io/MedBioInfo_blog/posts/Nf-core/nf-core_logo" medium="image"/>
 </item>
 <item>
+  <title>Nf-Core</title>
+  <dc:creator>Lara Leal</dc:creator>
+  <link>https://Lara-llh.github.io/MedBioInfo_blog/posts/Nf-core_RNAseq_pipeline/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+
+<p><img src="https://Lara-llh.github.io/MedBioInfo_blog/posts/Nf-core_RNAseq_pipeline/nf-core-rnaseq_metro_map_grey_animated.svg" class="img-fluid"></p>
+<p>Now that we have tested nextflow and nf-core, we want to use the pipeline in our own data.</p>
+<section id="pixi-environment" class="level2">
+<h2 class="anchored" data-anchor-id="pixi-environment"><strong>1. Pixi environment</strong></h2>
+<p>First, we need to make a new directory for the analysis. What dependencies do we need for Nextflow and nf-core? Our <code>pixi.toml</code> file should look like this:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">[workspace]</span></span>
+<span id="cb1-2"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">channels</span> = [<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"conda-forge"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"bioconda"</span>]</span>
+<span id="cb1-3"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">name</span> = <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"nf-core_RNAseq"</span></span>
+<span id="cb1-4"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">platforms</span> = <span class="pp" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">[</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"linux-64"</span><span class="pp" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">]</span></span>
+<span id="cb1-5"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">version</span> = <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"0.1.0"</span></span>
+<span id="cb1-6"></span>
+<span id="cb1-7"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">[tasks]</span></span>
+<span id="cb1-8"></span>
+<span id="cb1-9"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">[dependencies]</span></span>
+<span id="cb1-10"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">nf-core</span> = <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"&gt;=3.3.2,&lt;4"</span></span>
+<span id="cb1-11"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">nextflow</span> = <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"&gt;=25.4.8,&lt;26"</span></span></code></pre></div></div>
+</section>
+<section id="link-your-data-into-the-directory" class="level2">
+<h2 class="anchored" data-anchor-id="link-your-data-into-the-directory"><strong>2. Link your data into the directory</strong></h2>
+<p>Make a subdirectory, <code>data</code>, change into it and create a symlink to the data:</p>
+<p>Use:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">ln</span> <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-s</span> SOURCE TARGET</span></code></pre></div></div>
+<p>Since you are in the directory <code>data</code> the TARGET is simply <code>.</code> .</p>
+<p>Change back to the parent directory.</p>
+</section>
+<section id="nf-core-launch" class="level2">
+<h2 class="anchored" data-anchor-id="nf-core-launch"><strong>3. nf-core launch</strong></h2>
+<p>The nf-core platform helps you set up the pipleines with the <code>nf-core launcher</code>. In order to use it, you have to go to the nf-core webpage of the pipleine you are interested in. In this case, we are going to use the <a href="https://nf-co.re/rnaseq/3.19.0/">nf-core/rnaseq</a>, following this link you have to click on the button <code>launch version 3.19.0</code>(it could be a different one in the future). We are then redirected to a page where we can fill in all of our information about input files, as well as selecting or deselecting certain parts of the pipeline.</p>
+<section id="setting-working-and-results-directories" class="level3">
+<h3 class="anchored" data-anchor-id="setting-working-and-results-directories"><strong>Setting working and results directories</strong></h3>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>We recommend that you use absolute paths rather than relative paths for setting up your runs.</p>
+</div>
+</div>
+</div>
+<p>During the first part, you need to set a working and result directory. If you are using a server that has a profile established, you can put the name of the server there. In our case, we will use the server configuration file locally.</p>
+<p>Set resume to True, otherwise you don’t need to change anything here. <img src="https://Lara-llh.github.io/MedBioInfo_blog/posts/Nf-core_RNAseq_pipeline/nextflow_command-line_flags.png" class="img-fluid"></p>
+<p>Next, the pipeline asks for the input CSV. Exact requirements for how that input file should look like can be found under the tab Usage on the pipeline homepage. This input CSV is unique to each analysis. The input CSV (<code>samplesheet.csv</code>) we need for this pipeline looks like this:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">sample,fastq_1,fastq_2,strandedness</span></span>
+<span id="cb3-2"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">SRR5223504,</span> /proj/nobackup/medbioinfo2025/lara_leal/nf-core_test_course/nf-core_RNAseq/data/SRR5223504_1.fastq.gz, /proj/nobackup/medbioinfo2025/lara_leal/nf-core_test_course/nf-core_RNAseq/data/SRR5223504_2.fastq.gz, auto</span>
+<span id="cb3-3"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">SRR5223517,</span> /proj/nobackup/medbioinfo2025/lara_leal/nf-core_test_course/nf-core_RNAseq/data/SRR5223517_1.fastq.gz, /proj/nobackup/medbioinfo2025/lara_leal/nf-core_test_course/nf-core_RNAseq/data/SRR5223517_2.fastq.gz, auto</span></code></pre></div></div>
+<p><img src="https://Lara-llh.github.io/MedBioInfo_blog/posts/Nf-core_RNAseq_pipeline/input-output_options.png" class="img-fluid"></p>
+<p>Set the outdir to the name and path to a directory you want the output to be saved to.</p>
+</section>
+<section id="setting-all-other-inputs-that-are-required" class="level3">
+<h3 class="anchored" data-anchor-id="setting-all-other-inputs-that-are-required"><strong>Setting all other inputs that are required</strong></h3>
+<p>In this section, you set variables that are related to your reference genome. If you are using something listed on iGenomes, you can input that name. If you are working with your own reference genome, or something not listed, you need to input the absolute path of the reference genomes you have downloaded. <img src="https://Lara-llh.github.io/MedBioInfo_blog/posts/Nf-core_RNAseq_pipeline/reference_genome_1.png" class="img-fluid"> <img src="https://Lara-llh.github.io/MedBioInfo_blog/posts/Nf-core_RNAseq_pipeline/reference_genome_2.png" class="img-fluid"></p>
+<p>Depending on your strategy, you might need to input a corresponding gff as well. It really depends on the kind of analysis you are hoping to perform.</p>
+<p>In our case, we have human samples, so in theory we can use the iGenomes reference. However, the transcriptome and GTF files in iGenomes are out of date, so nf-core recommends downloading and using the more up-to-date version. In order to do so we are going to follow <a href="https://nf-co.re/docs/usage/reference_genomes#custom-genomes">these instructions</a>. We are going to create a <code>reference</code> folder in our directory that is going to contain the downloaded genome and a <code>download.sh</code> file with the following information:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#!/bin/bash -l</span></span>
+<span id="cb4-2"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#SBATCH -A hpc2n2025-203</span></span>
+<span id="cb4-3"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#SBATCH -t 10:00</span></span>
+<span id="cb4-4"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#SBATCH -n 1</span></span>
+<span id="cb4-5"> </span>
+<span id="cb4-6"><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">VERSION</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>108</span>
+<span id="cb4-7"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">wget</span> <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-L</span> ftp://ftp.ensembl.org/pub/release-<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">$VERSION</span>/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna_sm.primary_assembly.fa.gz</span>
+<span id="cb4-8"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">wget</span> <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-L</span> ftp://ftp.ensembl.org/pub/release-<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">$VERSION</span>/gtf/homo_sapiens/Homo_sapiens.GRCh38.<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">$VERSION</span>.gtf.gz</span></code></pre></div></div>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Other than the options above, you don’t need to change anything to run the pipeline. However, for your project you might want to change some of the default parameters. For this exercise we will keep the rest as it is.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="getting-your-json-file" class="level3">
+<h3 class="anchored" data-anchor-id="getting-your-json-file"><strong>Getting your JSON file</strong></h3>
+<p>Once everything is filled in, click on Launch and you will be redirected to another page containing your JSON file that has information on your run.</p>
+<p>Copy the JSON file a bit lower on the screen and saving it as <code>nf-params.json</code> in your folder on HPC2N.</p>
+<p>Add the <code>save_reference</code> line as recommended by nf-core (because we are using their downloaded human genome). <img src="https://Lara-llh.github.io/MedBioInfo_blog/posts/Nf-core_RNAseq_pipeline/run_launch.png" class="img-fluid"></p>
+</section>
+<section id="configuration-profile" class="level3">
+<h3 class="anchored" data-anchor-id="configuration-profile"><strong>Configuration profile</strong></h3>
+<p>As before, you need the HPC2N configuration file, with the correct project ID.</p>
+<p>Add your e-mail under <code>email</code> and you will receive a message with a summary of the run.</p>
+</section>
+</section>
+<section id="starting-the-run" class="level2">
+<h2 class="anchored" data-anchor-id="starting-the-run"><strong>4. Starting the run</strong></h2>
+<p>The launcher gives us the command to run the pipeline:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">nextflow</span> run nf-core/rnaseq <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-r</span> 3.19.0 <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-resume</span> <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-params-file</span> nf-params.json</span></code></pre></div></div>
+<p>We need to change this slightly, to add that we are running it via Pixi, and to add the server specific configuration file:</p>
+<section id="submit-directly-via-pixi" class="level3">
+<h3 class="anchored" data-anchor-id="submit-directly-via-pixi"><strong>Submit directly via pixi</strong></h3>
+<p>Now you can run the pipeline with the following command (you might have to change it a bit to add pathways to files that are not in your current working directory):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">pixi</span> run nextflow run nf-core/rnaseq <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-r</span> 3.19.0 <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-resume</span> <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-params-file</span> nf-params.json <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-c</span> hpc2n.config</span></code></pre></div></div>
+<p>There are several layers to this command:</p>
+<p>First we invoke <code>Pixi</code> and tell it to run the following commands.</p>
+<p>Then we say which program we want to run, namely <code>Nextflow</code>.</p>
+<p>The following commands are Nextflow/ nf-core commands:</p>
+<ul>
+<li>we want to run the nf-core/rnaseq pipeline, version 3.19.0</li>
+<li>we want to use the parameter file called nf-params.json</li>
+<li>we want to use the hpc configuration file called hpc2n.config</li>
+</ul>
+</section>
+<section id="submit-via-sbatch" class="level3">
+<h3 class="anchored" data-anchor-id="submit-via-sbatch"><strong>Submit via sbatch</strong></h3>
+<p>Alternatively, you can run nextflow via pixi using a batch script and slurm: copy the following text to file called <code>name_submit_rnaseq.sh</code> where name is your name.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#!/bin/bash -l</span></span>
+<span id="cb7-2"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#SBATCH -A our_proj_allocation</span></span>
+<span id="cb7-3"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#SBATCH -n 5</span></span>
+<span id="cb7-4"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#SBATCH -t 24:00:00</span></span>
+<span id="cb7-5"></span>
+<span id="cb7-6"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">/your_home_directory/.pixi/bin/pixi</span> run nextflow run nf-core/rnaseq <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-r</span> 3.19.0 <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-params-file</span> /your_path/nf-params.json <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-c</span> server.config</span></code></pre></div></div>
+<p>And then submit it to slurm with:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">sbatch</span> name_submit_rnaseq.sh</span></code></pre></div></div>
+<p>You can check the progress of your job with squeue -u your_username</p>
+<p>And now we wait until the run is done!</p>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Nextflow is notoriously bad at cleaning after itself. You can check previous runs with <code>pixi run nextflow log</code>. And then clean up with for example <code>pixi run nextflow clean -f -before &lt;run_name&gt;</code>.</p>
+</div>
+</div>
+</div>
+
+
+</section>
+</section>
+
+ ]]></description>
+  <category>info</category>
+  <guid>https://Lara-llh.github.io/MedBioInfo_blog/posts/Nf-core_RNAseq_pipeline/</guid>
+  <pubDate>Thu, 09 Oct 2025 00:00:00 GMT</pubDate>
+  <media:content url="https://Lara-llh.github.io/MedBioInfo_blog/posts/Nf-core_RNAseq_pipeline/Nf-core RNAseq.png" medium="image" type="image/png" height="56" width="144"/>
+</item>
+<item>
   <title>Nextflow RNAseq pipeline</title>
   <dc:creator>Lara Leal</dc:creator>
   <link>https://Lara-llh.github.io/MedBioInfo_blog/posts/Nextflow_RNAseq_pipeline/</link>
