@@ -191,7 +191,7 @@ header, .navbar, .quarto-title-block {
   .code-tools {
     filter: brightness(1.2);
   }
-  
+
   .callout {
     background-color: #2c2925;
     border-left: 4px solid #bba984;
@@ -230,6 +230,14 @@ header, .navbar, .quarto-title-block {
   }
 
   .quarto-subtitle {
+    color: #d2cdc6;
+  }
+
+  .post .quarto-title {
+    color: #f2eee9; 
+  }
+
+  .post .quarto-subtitle {
     color: #d2cdc6;
   }
 
