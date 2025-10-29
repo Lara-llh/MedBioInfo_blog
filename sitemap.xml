@@ -2,46 +2,42 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://Lara-llh.github.io/MedBioInfo_blog/about.html</loc>
-    <lastmod>2025-10-29T10:04:05.676Z</lastmod>
-  </url>
-  <url>
-    <loc>https://Lara-llh.github.io/MedBioInfo_blog/posts/welcome/index.html</loc>
-    <lastmod>2025-10-29T10:04:05.708Z</lastmod>
-  </url>
-  <url>
-    <loc>https://Lara-llh.github.io/MedBioInfo_blog/posts/Nf-core_RNAseq_pipeline/index.html</loc>
-    <lastmod>2025-10-29T10:04:05.679Z</lastmod>
-  </url>
-  <url>
-    <loc>https://Lara-llh.github.io/MedBioInfo_blog/posts/how-to-make-a-quarto-blog/index.html</loc>
-    <lastmod>2025-10-29T10:04:05.686Z</lastmod>
-  </url>
-  <url>
-    <loc>https://Lara-llh.github.io/MedBioInfo_blog/posts/Nf-core/index.html</loc>
-    <lastmod>2025-10-29T10:04:05.678Z</lastmod>
-  </url>
-  <url>
-    <loc>https://Lara-llh.github.io/MedBioInfo_blog/index.html</loc>
-    <lastmod>2025-10-29T10:04:05.676Z</lastmod>
-  </url>
-  <url>
-    <loc>https://Lara-llh.github.io/MedBioInfo_blog/posts/Nextflow_RNAseq_pipeline/index.html</loc>
-    <lastmod>2025-10-29T10:04:05.678Z</lastmod>
-  </url>
-  <url>
-    <loc>https://Lara-llh.github.io/MedBioInfo_blog/posts/post-with-code/index.html</loc>
-    <lastmod>2025-10-29T10:04:05.708Z</lastmod>
-  </url>
-  <url>
-    <loc>https://Lara-llh.github.io/MedBioInfo_blog/posts/how-to-use-and-create-containers/index.html</loc>
-    <lastmod>2025-10-29T10:04:05.708Z</lastmod>
+    <lastmod>2025-10-29T10:34:34.523Z</lastmod>
   </url>
   <url>
     <loc>https://Lara-llh.github.io/MedBioInfo_blog/posts/Nextflow_Intro/index.html</loc>
-    <lastmod>2025-10-29T10:04:05.677Z</lastmod>
+    <lastmod>2025-10-29T10:34:34.524Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Lara-llh.github.io/MedBioInfo_blog/posts/how-to-use-and-create-containers/index.html</loc>
+    <lastmod>2025-10-29T10:34:34.555Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Lara-llh.github.io/MedBioInfo_blog/posts/ggplot/index.html</loc>
+    <lastmod>2025-10-29T10:34:34.533Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Lara-llh.github.io/MedBioInfo_blog/posts/Nextflow_RNAseq_pipeline/index.html</loc>
+    <lastmod>2025-10-29T10:34:34.524Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Lara-llh.github.io/MedBioInfo_blog/index.html</loc>
+    <lastmod>2025-10-29T10:34:34.523Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Lara-llh.github.io/MedBioInfo_blog/posts/Nf-core/index.html</loc>
+    <lastmod>2025-10-29T10:34:34.524Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Lara-llh.github.io/MedBioInfo_blog/posts/how-to-make-a-quarto-blog/index.html</loc>
+    <lastmod>2025-10-29T10:34:34.533Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Lara-llh.github.io/MedBioInfo_blog/posts/Nf-core_RNAseq_pipeline/index.html</loc>
+    <lastmod>2025-10-29T10:34:34.526Z</lastmod>
   </url>
   <url>
     <loc>https://Lara-llh.github.io/MedBioInfo_blog/posts/Working-with-environments/index.html</loc>
-    <lastmod>2025-10-29T10:04:05.686Z</lastmod>
+    <lastmod>2025-10-29T10:34:34.532Z</lastmod>
   </url>
 </urlset>
