@@ -6,7 +6,7 @@ categories: [code]
 image: "containers.jpg"
 ---
 
-![](containers.jpg.jpg){.post-header}
+![](containers.jpg){.post-header}
 
 Reproducibility in bioinformatics can be a big problem. The same code can be runned by you in you computer and give some results, and when given to someone else it gives other results or it doesn't fully work. 
 
