@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Lara Leal">
-<meta name="dcterms.date" content="2025-10-08">
+<meta name="dcterms.date" content="2025-10-09">
 
-<title>Nextflow Intro – MedBioInfo Applied Bioinformatics blog by Lara</title>
+<title>Nf-Core – MedBioInfo Applied Bioinformatics blog by Lara</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -321,7 +321,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-page">
-      <h1 class="title">Nextflow Intro</h1>
+      <h1 class="title">Nf-Core</h1>
                                 <div class="quarto-categories">
                 <div class="quarto-category">info</div>
               </div>
@@ -341,7 +341,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">October 8, 2025</p>
+        <p class="date">October 9, 2025</p>
       </div>
     </div>
     
@@ -361,123 +361,133 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<p><img src="Nextflow.png" class="post-header img-fluid"></p>
-<p>Workflow managers allow you to develop an automated pipeline from your scripts that can then be run on a variety of systems.</p>
-<p>The manager then coordinates the deployment of the scripts in the appropriate sequence, monitors the jobs, handles the file transfers between scripts, gathers the output, and handles re-execution of failed jobs for you. Workflow managed pipelines can run containers, which eliminates software installation and version conflicts.</p>
-<p>There are two main workflow managers: <a href="https://www.snakemake.io">snakemake</a> and <a href="https://www.nextflow.io">nextflow</a>.</p>
-<section id="nextflow" class="level2">
-<h2 class="anchored" data-anchor-id="nextflow"><strong>Nextflow</strong></h2>
-<p>In nextflow, your scripts are turned into processes, connected by channels that contain the data - input, output etc. The order of the processes, and their interaction with each other, is specfied in the workflow scope.</p>
-<p><img src="channel-process_fqc.png" class="img-fluid"></p>
-<p>Important things about nextflow:</p>
+<p><img src="nf-core-rnaseq_metro_map_grey_animated.svg" class="img-fluid"></p>
+<p>Now that we have tested nextflow and nf-core, we want to use the pipeline in our own data.</p>
+<section id="pixi-environment" class="level2">
+<h2 class="anchored" data-anchor-id="pixi-environment"><strong>1. Pixi environment</strong></h2>
+<p>First, we need to make a new directory for the analysis. What dependencies do we need for Nextflow and nf-core? Our <code>pixi.toml</code> file should look like this:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">[workspace]</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">channels</span> = [<span class="st">"conda-forge"</span>, <span class="st">"bioconda"</span>]</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">name</span> = <span class="st">"nf-core_RNAseq"</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">platforms</span> = <span class="pp">[</span><span class="st">"linux-64"</span><span class="pp">]</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">version</span> = <span class="st">"0.1.0"</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="ex">[tasks]</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="ex">[dependencies]</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="ex">nf-core</span> = <span class="st">"&gt;=3.3.2,&lt;4"</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="ex">nextflow</span> = <span class="st">"&gt;=25.4.8,&lt;26"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="link-your-data-into-the-directory" class="level2">
+<h2 class="anchored" data-anchor-id="link-your-data-into-the-directory"><strong>2. Link your data into the directory</strong></h2>
+<p>Make a subdirectory, <code>data</code>, change into it and create a symlink to the data:</p>
+<p>Use:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-s</span> SOURCE TARGET</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Since you are in the directory <code>data</code> the TARGET is simply <code>.</code> .</p>
+<p>Change back to the parent directory.</p>
+</section>
+<section id="nf-core-launch" class="level2">
+<h2 class="anchored" data-anchor-id="nf-core-launch"><strong>3. nf-core launch</strong></h2>
+<p>The nf-core platform helps you set up the pipleines with the <code>nf-core launcher</code>. In order to use it, you have to go to the nf-core webpage of the pipleine you are interested in. In this case, we are going to use the <a href="https://nf-co.re/rnaseq/3.19.0/">nf-core/rnaseq</a>, following this link you have to click on the button <code>launch version 3.19.0</code>(it could be a different one in the future). We are then redirected to a page where we can fill in all of our information about input files, as well as selecting or deselecting certain parts of the pipeline.</p>
+<section id="setting-working-and-results-directories" class="level3">
+<h3 class="anchored" data-anchor-id="setting-working-and-results-directories"><strong>Setting working and results directories</strong></h3>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>We recommend that you use absolute paths rather than relative paths for setting up your runs.</p>
+</div>
+</div>
+</div>
+<p>During the first part, you need to set a working and result directory. If you are using a server that has a profile established, you can put the name of the server there. In our case, we will use the server configuration file locally.</p>
+<p>Set resume to True, otherwise you don’t need to change anything here. <img src="nextflow_command-line_flags.png" class="img-fluid"></p>
+<p>Next, the pipeline asks for the input CSV. Exact requirements for how that input file should look like can be found under the tab Usage on the pipeline homepage. This input CSV is unique to each analysis. The input CSV (<code>samplesheet.csv</code>) we need for this pipeline looks like this:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sample,fastq_1,fastq_2,strandedness</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">SRR5223504,</span> /proj/nobackup/medbioinfo2025/lara_leal/nf-core_test_course/nf-core_RNAseq/data/SRR5223504_1.fastq.gz, /proj/nobackup/medbioinfo2025/lara_leal/nf-core_test_course/nf-core_RNAseq/data/SRR5223504_2.fastq.gz, auto</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">SRR5223517,</span> /proj/nobackup/medbioinfo2025/lara_leal/nf-core_test_course/nf-core_RNAseq/data/SRR5223517_1.fastq.gz, /proj/nobackup/medbioinfo2025/lara_leal/nf-core_test_course/nf-core_RNAseq/data/SRR5223517_2.fastq.gz, auto</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><img src="input-output_options.png" class="img-fluid"></p>
+<p>Set the outdir to the name and path to a directory you want the output to be saved to.</p>
+</section>
+<section id="setting-all-other-inputs-that-are-required" class="level3">
+<h3 class="anchored" data-anchor-id="setting-all-other-inputs-that-are-required"><strong>Setting all other inputs that are required</strong></h3>
+<p>In this section, you set variables that are related to your reference genome. If you are using something listed on iGenomes, you can input that name. If you are working with your own reference genome, or something not listed, you need to input the absolute path of the reference genomes you have downloaded. <img src="reference_genome_1.png" class="img-fluid"> <img src="reference_genome_2.png" class="img-fluid"></p>
+<p>Depending on your strategy, you might need to input a corresponding gff as well. It really depends on the kind of analysis you are hoping to perform.</p>
+<p>In our case, we have human samples, so in theory we can use the iGenomes reference. However, the transcriptome and GTF files in iGenomes are out of date, so nf-core recommends downloading and using the more up-to-date version. In order to do so we are going to follow <a href="https://nf-co.re/docs/usage/reference_genomes#custom-genomes">these instructions</a>. We are going to create a <code>reference</code> folder in our directory that is going to contain the downloaded genome and a <code>download.sh</code>file with the following information:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash -l</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -A hpc2n2025-203</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -t 10:00</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -n 1</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="va">VERSION</span><span class="op">=</span>108</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> <span class="at">-L</span> ftp://ftp.ensembl.org/pub/release-<span class="va">$VERSION</span>/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna_sm.primary_assembly.fa.gz</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> <span class="at">-L</span> ftp://ftp.ensembl.org/pub/release-<span class="va">$VERSION</span>/gtf/homo_sapiens/Homo_sapiens.GRCh38.<span class="va">$VERSION</span>.gtf.gz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Other than the options above, you don’t need to change anything to run the pipeline. However, for your project you might want to change some of the default parameters. For this evercise we will keep the rest as is.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="getting-your-json-file" class="level3">
+<h3 class="anchored" data-anchor-id="getting-your-json-file"><strong>Getting your JSON file</strong></h3>
+<p>Once everything is filled in, click on Launch and you will be redirected to another page containing your JSON file that has information on your run.</p>
+<p>Copy the JSON file a bit lower on the screen and saving it as <code>nf-params.json</code> in your folder on HPC2N.</p>
+<p>Add the <code>save_reference</code> line as recommended by nf-core (because we are using their downloaded human genome). <img src="run_launch.png" class="img-fluid"></p>
+</section>
+<section id="configuration-profile" class="level3">
+<h3 class="anchored" data-anchor-id="configuration-profile"><strong>Configuration profile</strong></h3>
+<p>As before, you need the HPC2N configuration file, with the correct project ID.</p>
+<p>Add your e-mail under <code>email</code> and you will receive a message with a summary of the run.</p>
+</section>
+</section>
+<section id="starting-the-run" class="level2">
+<h2 class="anchored" data-anchor-id="starting-the-run"><strong>4. Starting the run</strong></h2>
+<p>The launcher gives us the command to run the pipeline:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">nextflow</span> run nf-core/rnaseq <span class="at">-r</span> 3.19.0 <span class="at">-resume</span> <span class="at">-params-file</span> nf-params.json</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>We need to change this slightly, to add that we are running it via Pixi, and to add the server specific configuration file:</p>
+<section id="submit-directly-via-pixi" class="level3">
+<h3 class="anchored" data-anchor-id="submit-directly-via-pixi"><strong>Submit directly via pixi</strong></h3>
+<p>Now you can run the pipeline with the following command (you might have to change it a bit to add pathways to files that are not in your current working directory):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> run nextflow run nf-core/rnaseq <span class="at">-r</span> 3.19.0 <span class="at">-resume</span> <span class="at">-params-file</span> nf-params.json <span class="at">-c</span> hpc2n.config</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>There are several layers to this command:</p>
+<p>First we invoke <code>Pixi</code> and tell it to run the following commands.</p>
+<p>Then we say which program we want to run, namely <code>Nextflow</code>.</p>
+<p>The following commands are Nextflow/ nf-core commands:</p>
 <ul>
-<li>The <code>script</code> can be written in any language.</li>
-<li>The modularity of the process allows to re-use existing scripts and processes easily.</li>
-<li>The functional processes are separated from the executive ones, therefore the pipelines are higly interoperable and portable.</li>
-<li>Pipelines can be very reproducible if they are integrated with version control tools (like git or bitbucket) and container technologies (apptainer or docker).</li>
-<li>They are scalable, you can start testing with just a couple of samples and easily scale up to hundreds or thusands. Processes are run in parallele automatically when possible.</li>
-<li>It resumes executions. Automatically checks the processes and can resume from a point of failure without having to re-compute already completed parts.</li>
-<li>It’s open source.</li>
+<li>we want to run the nf-core/rnaseq pipeline, version 3.19.0</li>
+<li>we want to use the parameter file called nf-params.json</li>
+<li>we want to use the hpc configuration file called hpc2n.config</li>
 </ul>
-<section id="processes-and-channels" class="level3">
-<h3 class="anchored" data-anchor-id="processes-and-channels"><strong>Processes and Channels</strong></h3>
-<p>The Netxflow workflows are made by combining different processes. This processes can be written in different lenguages as long as they can be executed by a Linux platform. Each process is executed independently, and different processes only comunicate via a first-in, first-out asynchronous queue. These queues are called channels, and any process can defined them as input and output. The interaction between these processes and the execution of the workflow is defined by these input output declarations.</p>
-<p>This is how a basic Nextflow pipeline process block would look like:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">process</span> PROCESS_NAME{</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="ex">input:</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>      <span class="ex">data</span> z</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>      <span class="ex">data</span> y</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>      <span class="ex">data</span> x</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="ex">//</span> directives</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="ex">container</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="ex">script:</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>      <span class="ex">task1</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>      <span class="ex">task2</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>      <span class="ex">task3</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="ex">output:</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>      <span class="ex">output</span> x</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>      <span class="ex">output</span> y</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>      <span class="ex">output</span> z</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="er">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="execution-abstraction-running-fastqc" class="level3">
-<h3 class="anchored" data-anchor-id="execution-abstraction-running-fastqc"><strong>Execution abstraction running fastQC</strong></h3>
-<p>In Nextflow, the process defines what comand or script is executed, and the executor determines how that script is runned. By default, the processes are excuted on the local computer. The local executor is very useful in workflow development and testing, but when running real computational workflows other platforms are required, like a high-performance computing or cloud platform.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">-A</span> project_ID <span class="at">-t</span> 15:00 <span class="at">-n</span> 1 fastqc <span class="at">--noextract</span> <span class="at">-o</span> fastqc data data/sample_1.fastq.gz data/sample_2.fastq.gz </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="nextflow-code-example" class="level3">
-<h3 class="anchored" data-anchor-id="nextflow-code-example"><strong>Nextflow code example</strong></h3>
-<p>Script:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/usr/bin/env nextflow</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">params.greeting</span> = <span class="st">'Hello world!'</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="ex">greeting_ch</span> = Channel.of<span class="er">(</span><span class="ex">params.greeting</span><span class="kw">)</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="ex">process</span> SPLITLETTERS {</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="ex">input:</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="ex">val</span> x</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="ex">output:</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="ex">path</span> <span class="st">'chunk_*'</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="ex">script:</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"""</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="st">    printf '</span><span class="va">$x</span><span class="st">' | split -b 6 - chunk_</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="st">    """</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="er">}</span></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="ex">process</span> CONVERTTOUPPER {</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    <span class="ex">input:</span></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    <span class="ex">path</span> y</span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    <span class="ex">output:</span></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    <span class="ex">stdout</span></span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    <span class="ex">script:</span></span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>    <span class="st">"""</span></span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="st">    cat </span><span class="va">$y</span><span class="st"> | tr '[a-z]' '[A-Z]' </span></span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="st">    """</span></span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="er">}</span></span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="ex">workflow</span> {</span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>    <span class="ex">letters_ch</span> = SPLITLETTERS<span class="er">(</span><span class="ex">greeting_ch</span><span class="kw">)</span></span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>    <span class="ex">results_ch</span> = CONVERTTOUPPER<span class="er">(</span><span class="fu">letters_ch.flatten()</span><span class="kw">)</span></span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>    <span class="ex">results_ch.view{</span> it }</span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a><span class="er">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>To run it:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> run nextflow run hello.nf</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The output:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a> <span class="ex">N</span> E X T F L O W   ~  version 25.04.7</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Launching</span> <span class="kw">`</span><span class="ex">hello.nf</span><span class="kw">`</span> <span class="pp">[</span><span class="ss">jolly_faraday</span><span class="pp">]</span> DSL2 <span class="at">-</span> revision: f5e335f983</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="ex">executor</span> <span class="op">&gt;</span>  local <span class="er">(</span><span class="ex">3</span><span class="kw">)</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="ex">[96/fd5f07]</span> SPLITLETTERS <span class="er">(</span><span class="ex">1</span><span class="kw">)</span>   <span class="ex">[100%]</span> 1 of 1 ✔</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="ex">[7e/dad424]</span> CONVERTTOUPPER <span class="er">(</span><span class="ex">2</span><span class="kw">)</span> <span class="ex">[100%]</span> 2 of 2 ✔</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="ex">HELLO</span> </span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="ex">WORLD!</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="modify-and-resume" class="level3">
-<h3 class="anchored" data-anchor-id="modify-and-resume"><strong>Modify and resume</strong></h3>
-<p>Nextflow keeps track of all the processes executed and if you modify some prts of your script, only the processes that are changed will be re-executed. In this case, it will use the cached result from the processes that weren’t changed.</p>
-</section>
-<section id="workflow-parameters" class="level3">
-<h3 class="anchored" data-anchor-id="workflow-parameters"><strong>Workflow parameters</strong></h3>
-<p>The workflow parameters are simply declared by prepending the prefix params to a variable name, separated by a ‘.’ (e.g.&nbsp;params.greetings). Their value can be specified on the comand line:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> run nextflow run hello.nf <span class="at">-resume</span> <span class="at">--greeting</span> <span class="st">'Bonjour le monde!'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="clean-up-nextflow" class="level3">
-<h3 class="anchored" data-anchor-id="clean-up-nextflow"><strong>Clean up Nextflow</strong></h3>
-<p>Periodically, it makes sense to clean up your nextflow working directory. You can do that manually, but the non-descriptive nature of the file system makes that difficult.</p>
-<p>Nextflow keeps track of your runs that have been executed from the current directory. The folowing comand will show you the executions log and runtime information of all the runs.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> run nextflow log</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>You can clean the porject cache and th work directories with the folowing comand:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">nextflow</span> clean</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>You can also specify the run or runs that you want to eliminate. <a href="https://www.nextflow.io/docs/latest/reference/cli.html#clean">Here</a> you can find a more extensive explanation of the different options.</p>
+<section id="submit-via-sbatch" class="level3">
+<h3 class="anchored" data-anchor-id="submit-via-sbatch"><strong>Submit via sbatch</strong></h3>
+<p>Alternatively, you can run nextflow via pixi using a batch script and slurm: copy the following text to file called <code>name_submit_rnaseq.sh</code> where name is your name.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash -l</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -A our_proj_allocation</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -n 5</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -t 24:00:00</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="ex">/your_home_directory/.pixi/bin/pixi</span> run nextflow run nf-core/rnaseq <span class="at">-r</span> 3.19.0 <span class="at">-params-file</span> /your_path/nf-params.json <span class="at">-c</span> server.config</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>And then submit it to slurm with:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sbatch</span> name_submit_rnaseq.sh</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>You can check the progress of your job with squeue -u your_username</p>
+<p>And now we wait until the run is done!</p>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Nextflow is notoriously bad at cleaning after itself. You can check previous runs with <code>pixi run nextflow log</code>. And then clean up with for example <code>pixi run nextflow clean -f -before &lt;run_name&gt;</code>.</p>
+</div>
+</div>
+</div>
 
 
 </section>
