@@ -5689,7 +5689,7 @@ font-style: inherit;">--help</span></span></code></pre></div></div>
 
 
 
-<p><img src="https://Lara-llh.github.io/MedBioInfo_blog/posts/how-to-use-and-create-containers/containers.jpg.jpg" class="post-header img-fluid"></p>
+<p><img src="https://Lara-llh.github.io/MedBioInfo_blog/posts/how-to-use-and-create-containers/containers.jpg" class="post-header img-fluid"></p>
 <p>Reproducibility in bioinformatics can be a big problem. The same code can be runned by you in you computer and give some results, and when given to someone else it gives other results or it doesn’t fully work.</p>
 <p>In order to resolve this issue, different tools were developed. You can use environments or containers.</p>
 <div class="callout callout-style-simple callout-none no-icon">
