@@ -1,6 +1,6 @@
 ---
 title: "About"
-image: Lara_profilepic.jpg
+image: profile.jpg
 about:
   template: jolla
   links:

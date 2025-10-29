@@ -65,9 +65,9 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "How to make a quatro blog",
+    "title": "Applied Bioinformatics",
     "section": "",
-    "text": "How to make a Quarto blog\n\n\n\ncode\n\n\n\n\n\n\n\nLara Leal\n\n\nOct 6, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\nWorking with environments\n\n\n\ncode\n\n\n\n\n\n\n\nLara Leal\n\n\nOct 7, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\nHow to use and create containers\n\n\n\ncode\n\n\n\n\n\n\n\nLara Leal\n\n\nOct 7, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\nNextflow Intro\n\n\n\ninfo\n\n\n\n\n\n\n\nLara Leal\n\n\nOct 8, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\nNf-Core\n\n\n\ninfo\n\ncode\n\n\n\n\n\n\n\nLara Leal\n\n\nOct 9, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\nNextflow RNAseq pipeline\n\n\n\ninfo\n\ncode\n\n\n\n\n\n\n\nLara Leal\n\n\nOct 9, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\nVisualize your data with ggplot\n\n\n\n\n\n\nLara Leal\n\n\nOct 10, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\nNf-Core\n\n\n\ninfo\n\ncode\n\n\n\n\n\n\n\nLara Leal\n\n\nOct 10, 2025\n\n\n\n\n\n\nNo matching items"
+    "text": "How to make a Quarto blog\n\n\n\ncode\n\n\n\n\n\n\n\nLara Leal\n\n\nOct 6, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\nWorking with environments\n\n\n\ncode\n\n\n\n\n\n\n\nLara Leal\n\n\nOct 7, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\nHow to use and create containers\n\n\n\ncode\n\n\n\n\n\n\n\nLara Leal\n\n\nOct 7, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\nNextflow Intro\n\n\n\ninfo\n\n\n\n\n\n\n\nLara Leal\n\n\nOct 8, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\nNf-Core\n\n\n\ninfo\n\ncode\n\n\n\n\n\n\n\nLara Leal\n\n\nOct 9, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\nNextflow RNAseq pipeline\n\n\n\ninfo\n\ncode\n\n\n\n\n\n\n\nLara Leal\n\n\nOct 9, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\nVisualize your data with ggplot\n\n\n\n\n\n\nLara Leal\n\n\nOct 10, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\nNf-Core RNAseq pipeline\n\n\n\ninfo\n\ncode\n\n\n\n\n\n\n\nLara Leal\n\n\nOct 10, 2025\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/Nextflow Intro/index.html",
@@ -205,35 +205,35 @@
   {
     "objectID": "posts/Nf-core_RNAseq_pipeline/index.html",
     "href": "posts/Nf-core_RNAseq_pipeline/index.html",
-    "title": "Nf-Core",
+    "title": "Nf-Core RNAseq pipeline",
     "section": "",
     "text": "Now that we have tested nextflow and nf-core, we want to use the pipeline in our own data."
   },
   {
     "objectID": "posts/Nf-core_RNAseq_pipeline/index.html#pixi-environment",
     "href": "posts/Nf-core_RNAseq_pipeline/index.html#pixi-environment",
-    "title": "Nf-Core",
+    "title": "Nf-Core RNAseq pipeline",
     "section": "1. Pixi environment",
     "text": "1. Pixi environment\nFirst, we need to make a new directory for the analysis. What dependencies do we need for Nextflow and nf-core? Our pixi.toml file should look like this:\n[workspace]\nchannels = [\"conda-forge\", \"bioconda\"]\nname = \"nf-core_RNAseq\"\nplatforms = [\"linux-64\"]\nversion = \"0.1.0\"\n\n[tasks]\n\n[dependencies]\nnf-core = \"&gt;=3.3.2,&lt;4\"\nnextflow = \"&gt;=25.4.8,&lt;26\""
   },
   {
     "objectID": "posts/Nf-core_RNAseq_pipeline/index.html#link-your-data-into-the-directory",
     "href": "posts/Nf-core_RNAseq_pipeline/index.html#link-your-data-into-the-directory",
-    "title": "Nf-Core",
+    "title": "Nf-Core RNAseq pipeline",
     "section": "2. Link your data into the directory",
     "text": "2. Link your data into the directory\nMake a subdirectory, data, change into it and create a symlink to the data:\nUse:\nln -s SOURCE TARGET\nSince you are in the directory data the TARGET is simply . .\nChange back to the parent directory."
   },
   {
     "objectID": "posts/Nf-core_RNAseq_pipeline/index.html#nf-core-launch",
     "href": "posts/Nf-core_RNAseq_pipeline/index.html#nf-core-launch",
-    "title": "Nf-Core",
+    "title": "Nf-Core RNAseq pipeline",
     "section": "3. nf-core launch",
     "text": "3. nf-core launch\nThe nf-core platform helps you set up the pipleines with the nf-core launcher. In order to use it, you have to go to the nf-core webpage of the pipleine you are interested in. In this case, we are going to use the nf-core/rnaseq, following this link you have to click on the button launch version 3.19.0(it could be a different one in the future). We are then redirected to a page where we can fill in all of our information about input files, as well as selecting or deselecting certain parts of the pipeline.\n\nSetting working and results directories\n\n\n\n\n\n\nWe recommend that you use absolute paths rather than relative paths for setting up your runs.\n\n\n\nDuring the first part, you need to set a working and result directory. If you are using a server that has a profile established, you can put the name of the server there. In our case, we will use the server configuration file locally.\nSet resume to True, otherwise you don’t need to change anything here. \nNext, the pipeline asks for the input CSV. Exact requirements for how that input file should look like can be found under the tab Usage on the pipeline homepage. This input CSV is unique to each analysis. The input CSV (samplesheet.csv) we need for this pipeline looks like this:\nsample,fastq_1,fastq_2,strandedness\nSRR5223504, /proj/nobackup/medbioinfo2025/lara_leal/nf-core_test_course/nf-core_RNAseq/data/SRR5223504_1.fastq.gz, /proj/nobackup/medbioinfo2025/lara_leal/nf-core_test_course/nf-core_RNAseq/data/SRR5223504_2.fastq.gz, auto\nSRR5223517, /proj/nobackup/medbioinfo2025/lara_leal/nf-core_test_course/nf-core_RNAseq/data/SRR5223517_1.fastq.gz, /proj/nobackup/medbioinfo2025/lara_leal/nf-core_test_course/nf-core_RNAseq/data/SRR5223517_2.fastq.gz, auto\n\nSet the outdir to the name and path to a directory you want the output to be saved to.\n\n\nSetting all other inputs that are required\nIn this section, you set variables that are related to your reference genome. If you are using something listed on iGenomes, you can input that name. If you are working with your own reference genome, or something not listed, you need to input the absolute path of the reference genomes you have downloaded.  \nDepending on your strategy, you might need to input a corresponding gff as well. It really depends on the kind of analysis you are hoping to perform.\nIn our case, we have human samples, so in theory we can use the iGenomes reference. However, the transcriptome and GTF files in iGenomes are out of date, so nf-core recommends downloading and using the more up-to-date version. In order to do so we are going to follow these instructions. We are going to create a reference folder in our directory that is going to contain the downloaded genome and a download.sh file with the following information:\n#!/bin/bash -l\n#SBATCH -A hpc2n2025-203\n#SBATCH -t 10:00\n#SBATCH -n 1\n \nVERSION=108\nwget -L ftp://ftp.ensembl.org/pub/release-$VERSION/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna_sm.primary_assembly.fa.gz\nwget -L ftp://ftp.ensembl.org/pub/release-$VERSION/gtf/homo_sapiens/Homo_sapiens.GRCh38.$VERSION.gtf.gz\n\n\n\n\n\n\nOther than the options above, you don’t need to change anything to run the pipeline. However, for your project you might want to change some of the default parameters. For this exercise we will keep the rest as it is.\n\n\n\n\n\nGetting your JSON file\nOnce everything is filled in, click on Launch and you will be redirected to another page containing your JSON file that has information on your run.\nCopy the JSON file a bit lower on the screen and saving it as nf-params.json in your folder on HPC2N.\nAdd the save_reference line as recommended by nf-core (because we are using their downloaded human genome). \n\n\nConfiguration profile\nAs before, you need the HPC2N configuration file, with the correct project ID.\nAdd your e-mail under email and you will receive a message with a summary of the run."
   },
   {
     "objectID": "posts/Nf-core_RNAseq_pipeline/index.html#starting-the-run",
     "href": "posts/Nf-core_RNAseq_pipeline/index.html#starting-the-run",
-    "title": "Nf-Core",
+    "title": "Nf-Core RNAseq pipeline",
     "section": "4. Starting the run",
     "text": "4. Starting the run\nThe launcher gives us the command to run the pipeline:\nnextflow run nf-core/rnaseq -r 3.19.0 -resume -params-file nf-params.json\nWe need to change this slightly, to add that we are running it via Pixi, and to add the server specific configuration file:\n\nSubmit directly via pixi\nNow you can run the pipeline with the following command (you might have to change it a bit to add pathways to files that are not in your current working directory):\npixi run nextflow run nf-core/rnaseq -r 3.19.0 -resume -params-file nf-params.json -c hpc2n.config\nThere are several layers to this command:\nFirst we invoke Pixi and tell it to run the following commands.\nThen we say which program we want to run, namely Nextflow.\nThe following commands are Nextflow/ nf-core commands:\n\nwe want to run the nf-core/rnaseq pipeline, version 3.19.0\nwe want to use the parameter file called nf-params.json\nwe want to use the hpc configuration file called hpc2n.config\n\n\n\nSubmit via sbatch\nAlternatively, you can run nextflow via pixi using a batch script and slurm: copy the following text to file called name_submit_rnaseq.sh where name is your name.\n#!/bin/bash -l\n#SBATCH -A our_proj_allocation\n#SBATCH -n 5\n#SBATCH -t 24:00:00\n\n/your_home_directory/.pixi/bin/pixi run nextflow run nf-core/rnaseq -r 3.19.0 -params-file /your_path/nf-params.json -c server.config\nAnd then submit it to slurm with:\nsbatch name_submit_rnaseq.sh\nYou can check the progress of your job with squeue -u your_username\nAnd now we wait until the run is done!\n\n\n\n\n\n\nNextflow is notoriously bad at cleaning after itself. You can check previous runs with pixi run nextflow log. And then clean up with for example pixi run nextflow clean -f -before &lt;run_name&gt;."
   },

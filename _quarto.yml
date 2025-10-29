@@ -25,6 +25,10 @@ format:
     code-line-numbers: false
     highlight-style: github
     page-layout: full
+    blog:
+      collection:
+        sort-by: date
+        order: descending
 
 execute:
   freeze: auto

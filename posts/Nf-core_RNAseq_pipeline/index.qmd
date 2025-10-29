@@ -1,5 +1,5 @@
 ---
-title: "Nf-Core"
+title: "Nf-Core RNAseq pipeline"
 author: "Lara Leal"
 date: "2025-10-10"
 categories: [info, code]
