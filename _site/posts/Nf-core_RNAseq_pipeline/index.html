@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Lara Leal">
-<meta name="dcterms.date" content="2025-10-09">
+<meta name="dcterms.date" content="2025-10-10">
 
 <title>Nf-Core – MedBioInfo Applied Bioinformatics blog by Lara</title>
 <style>
@@ -324,6 +324,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <h1 class="title">Nf-Core</h1>
                                 <div class="quarto-categories">
                 <div class="quarto-category">info</div>
+                <div class="quarto-category">code</div>
               </div>
                   </div>
   </div>
@@ -341,7 +342,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">October 9, 2025</p>
+        <p class="date">October 10, 2025</p>
       </div>
     </div>
     
@@ -414,7 +415,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="setting-all-other-inputs-that-are-required"><strong>Setting all other inputs that are required</strong></h3>
 <p>In this section, you set variables that are related to your reference genome. If you are using something listed on iGenomes, you can input that name. If you are working with your own reference genome, or something not listed, you need to input the absolute path of the reference genomes you have downloaded. <img src="reference_genome_1.png" class="img-fluid"> <img src="reference_genome_2.png" class="img-fluid"></p>
 <p>Depending on your strategy, you might need to input a corresponding gff as well. It really depends on the kind of analysis you are hoping to perform.</p>
-<p>In our case, we have human samples, so in theory we can use the iGenomes reference. However, the transcriptome and GTF files in iGenomes are out of date, so nf-core recommends downloading and using the more up-to-date version. In order to do so we are going to follow <a href="https://nf-co.re/docs/usage/reference_genomes#custom-genomes">these instructions</a>. We are going to create a <code>reference</code> folder in our directory that is going to contain the downloaded genome and a <code>download.sh</code>file with the following information:</p>
+<p>In our case, we have human samples, so in theory we can use the iGenomes reference. However, the transcriptome and GTF files in iGenomes are out of date, so nf-core recommends downloading and using the more up-to-date version. In order to do so we are going to follow <a href="https://nf-co.re/docs/usage/reference_genomes#custom-genomes">these instructions</a>. We are going to create a <code>reference</code> folder in our directory that is going to contain the downloaded genome and a <code>download.sh</code> file with the following information:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash -l</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -A hpc2n2025-203</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -t 10:00</span></span>
@@ -429,7 +430,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>Other than the options above, you don’t need to change anything to run the pipeline. However, for your project you might want to change some of the default parameters. For this evercise we will keep the rest as is.</p>
+<p>Other than the options above, you don’t need to change anything to run the pipeline. However, for your project you might want to change some of the default parameters. For this exercise we will keep the rest as it is.</p>
 </div>
 </div>
 </div>

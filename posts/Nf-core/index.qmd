@@ -2,7 +2,7 @@
 title: "Nf-Core"
 author: "Lara Leal"
 date: "2025-10-09"
-categories: [info]
+categories: [info, code] 
 image: "nf-core_logo"
 ---
 ![](nf-core-logo_big.png){.post-header}

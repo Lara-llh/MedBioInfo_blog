@@ -1,8 +1,8 @@
 ---
 title: "Nf-Core"
 author: "Lara Leal"
-date: "2025-10-09"
-categories: [info]
+date: "2025-10-10"
+categories: [info, code]
 image: "Nf-core RNAseq.png"
 ---
 ![](nf-core-rnaseq_metro_map_grey_animated.svg)

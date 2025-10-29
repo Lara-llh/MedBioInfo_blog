@@ -2,15 +2,14 @@
   {
     "listing": "/index.html",
     "items": [
-      "/posts/welcome/index.html",
-      "/posts/post-with-code/index.html",
       "/posts/how-to-make-a-quarto-blog/index.html",
       "/posts/Working-with-environments/index.html",
       "/posts/how-to-use-and-create-containers/index.html",
       "/posts/Nextflow_Intro/index.html",
-      "/posts/Nf-core_RNAseq_pipeline/index.html",
       "/posts/Nf-core/index.html",
-      "/posts/Nextflow_RNAseq_pipeline/index.html"
+      "/posts/Nextflow_RNAseq_pipeline/index.html",
+      "/posts/ggplot/index.html",
+      "/posts/Nf-core_RNAseq_pipeline/index.html"
     ]
   }
 ]

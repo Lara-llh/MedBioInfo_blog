@@ -2,7 +2,7 @@
 title: "Nextflow RNAseq pipeline"
 author: "Lara Leal"
 date: "2025-10-09"
-categories: [info]
+categories: [info, code]
 image: "dna-7094409_1280.jpg"
 ---
 ![](dna-7094409_1280.jpg){.post-header}
