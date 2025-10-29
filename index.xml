@@ -2780,7 +2780,7 @@ loaded via a namespace (and not attached):
   <media:content url="https://Lara-llh.github.io/MedBioInfo_blog/posts/ggplot/logo_ggplot.png" medium="image" type="image/png" height="166" width="144"/>
 </item>
 <item>
-  <title>Nf-Core</title>
+  <title>Nf-Core RNAseq pipeline</title>
   <dc:creator>Lara Leal</dc:creator>
   <link>https://Lara-llh.github.io/MedBioInfo_blog/posts/Nf-core_RNAseq_pipeline/</link>
   <description><![CDATA[ 
@@ -3221,7 +3221,7 @@ font-style: inherit;">-c</span> hpc2n.config</span></code></pre></div></div>
   <category>code</category>
   <guid>https://Lara-llh.github.io/MedBioInfo_blog/posts/Nf-core/</guid>
   <pubDate>Thu, 09 Oct 2025 00:00:00 GMT</pubDate>
-  <media:content url="https://Lara-llh.github.io/MedBioInfo_blog/posts/Nf-core/nf-core_logo" medium="image"/>
+  <media:content url="https://Lara-llh.github.io/MedBioInfo_blog/posts/Nf-core/nf-core_logo.png" medium="image" type="image/png" height="144" width="144"/>
 </item>
 <item>
   <title>Nextflow RNAseq pipeline</title>
